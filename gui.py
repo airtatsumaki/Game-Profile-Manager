@@ -43,7 +43,7 @@ def openFile(filePath):
         print("You need to select a file before running it")
 
 def runSteamGame():
-    subprocess.Popen(r"C:\Program Files (x86)\Steam\Steam.exe -applaunch 750920")
+    subprocess.Popen("C:/Program Files (x86)/Steam/Steam.exe -applaunch 750920")
     
 
 btnOpenDir = Button(root, text="Choose directory...", fg="black",command=getDir)

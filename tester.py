@@ -1,12 +1,15 @@
 import json
+import os
+import subprocess
 from Person import Person
 from Game import Game
 #people = {}
 peopleWithKey = {"people":[]}
+gamesWithKey = {"games":[]}
 
 def readPeopleFromFile():
     try:
-        with open("data\people.json") as json_file:
+        with open("data/people.json") as json_file:
             myjson = json.load(json_file) # load json file into loaded_users (will be a list)
         return myjson
     except Exception:
@@ -14,7 +17,7 @@ def readPeopleFromFile():
 
 def writePeopleToFile(jsonObj):
     try:
-        with open("data\people.json", "w") as f:
+        with open("data/people.json", "w") as f:
             json.dump(jsonObj, f, indent=4) #write users list to file
     except Exception:
         return False
@@ -32,6 +35,40 @@ def getAge(mylist,name): # return the age of the given arguement name, otherwise
             return x["age"]
     return 0
 
+def readGamesFromFile():
+    try:
+        with open("data/games.json") as json_file:
+            myjson = json.load(json_file) # load json file into loaded_users (will be a list)
+        return myjson
+    except Exception:
+        return False
+
+def writeGamesToFile(jsonObj):
+    try:
+        with open("data/games.json", "w") as f:
+            json.dump(jsonObj, f, indent=4) #write users list to file
+    except Exception:
+        return False
+
+def hasGame(mylist,name): # check if their is a json object with the same name as arguement
+    found = False
+    for x in mylist:
+        if str(x["title"]).lower() == str(name).lower():
+            return True
+    return found
+
+def runGame(mylist,title):
+    for x in mylist:
+        if str(x["title"]).lower() == str(title).lower():
+            if "steam://rungameid/" in x["executable"]:
+                temp = x["executable"].split("steam://rungameid/")
+                print(temp)
+                subprocess.Popen("C:/Program Files (x86)/Steam/Steam.exe -applaunch {}".format(temp))
+            else:
+                os.startfile(x["executable"])
+            break
+
+
 if not(readPeopleFromFile()):
     writePeopleToFile(peopleWithKey)
     print("Error. People file not found. File created!")
@@ -39,6 +76,14 @@ else:
     peopleWithKey = readPeopleFromFile()
     print("People file found and loaded")
 print(peopleWithKey)
+
+if not(readGamesFromFile()):
+    writeGamesToFile(gamesWithKey)
+    print("Error. Games file not found. File created!")
+else:
+    gamesWithKey = readGamesFromFile()
+    print("Games file found and loaded")
+print(gamesWithKey)
 
 for x in peopleWithKey["people"]:
     print(x["name"])
@@ -65,5 +110,12 @@ print(peopleWithKey)
 #people.append(json_p2)
 #people.append(json_p3)
 
-g1 = Game("Session.","steam://rungameid/861650","C:\\Users\\user\\AppData\\Local\\SessionGame\\Saved\\SaveGames")
-print(g1.__dict__)
+g1 = Game("tester1","D:/Work/backups/Apps/Game Profile Manager/Game Profile Manager.exe","C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames")
+if not(hasGame(gamesWithKey["games"],g1.title)):
+    gamesWithKey["games"].append(g1.__dict__)
+else:
+    print("game already exists. Will not be added.")
+
+writeGamesToFile(gamesWithKey)
+
+runGame(gamesWithKey["games"],"Session.")
