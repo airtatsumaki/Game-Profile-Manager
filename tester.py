@@ -1,12 +1,22 @@
 import json
 from Person import Person
-people = {}
+#people = {}
 peopleWithKey = {"people":[]}
 
 def readPeopleFromFile():
-    with open(r"data\people.json") as json_file:
-        myjson = json.load(json_file) # load json file into loaded_users (will be a list)
-    return myjson
+    try:
+        with open("data\people.json") as json_file:
+            myjson = json.load(json_file) # load json file into loaded_users (will be a list)
+        return myjson
+    except Exception:
+        return False
+
+def writePeopleToFile(jsonObj):
+    try:
+        with open("data\people.json", "w") as f:
+            json.dump(jsonObj, f, indent=4) #write users list to file
+    except Exception:
+        return False
 
 def hasPerson(mylist,name): # check if their is a json object with the same name as arguement
     found = False
@@ -21,33 +31,26 @@ def getAge(mylist,name): # return the age of the given arguement name, otherwise
             return x["age"]
     return 0
 
-def writePeopleToFile(jsonObj):
-    with open(r"data\people.json", "w") as f:
-        json.dump(jsonObj, f, indent=4) #write users list to file
-
-#people = readPeopleFromFile()
-#print(people)
-
-peopleWithKey = readPeopleFromFile()
+if not(readPeopleFromFile()):
+    writePeopleToFile(peopleWithKey)
+    print("Error. People file not found. File created!")
+else:
+    peopleWithKey = readPeopleFromFile()
+    print("People file found and loaded")
 print(peopleWithKey)
 
-people = peopleWithKey["people"]
+for x in peopleWithKey["people"]:
+    print(x["name"])
 
-for x in people:
-    print x["name"]
-
-#print(getAge(people,"dad"))
-#print(hasPerson(people,"bEv"))
-
-p4 = Person("profile2",98)
-json_p4 = json.loads(json.dumps(p4.__dict__))
-people.append(json_p4)
-
-peopleWithKey["people"] = people
+if not(hasPerson(peopleWithKey["people"],"profile2")):
+    p4 = Person("profile2",98)
+    json_p4 = json.loads(json.dumps(p4.__dict__))
+    peopleWithKey["people"].append(json_p4)
+else:
+    print("person already exists. Will not be added to the file".format())
 
 writePeopleToFile(peopleWithKey)
-
-
+print(peopleWithKey)
 
 #p1 = Person("naz",35)
 #p2 = Person("joe",30)
