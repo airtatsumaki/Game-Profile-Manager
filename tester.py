@@ -1,5 +1,6 @@
 import json
 from Person import Person
+from Game import Game
 #people = {}
 peopleWithKey = {"people":[]}
 
@@ -64,3 +65,5 @@ print(peopleWithKey)
 #people.append(json_p2)
 #people.append(json_p3)
 
+g1 = Game("Session.","steam://rungameid/861650","C:\\Users\\user\\AppData\\Local\\SessionGame\\Saved\\SaveGames")
+print(g1.__dict__)
