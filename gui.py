@@ -1,4 +1,6 @@
 import os
+import sys
+import win32com.client
 from tkinter import *
 from tkinter import filedialog
 from Person import Person
@@ -24,9 +26,9 @@ def getDir():
         lblDir.config(text=path)
 
 def getFile():
-    #path = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("application files","*.exe"),("all files","*.*")))
-    #path = filedialog.askopenfilename(initialdir = "/",title = "Select file")
-    path = filedialog.askopenfilename(parent=root, initialdir="/", filetypes=(("shortcuts", "*.lnk"),("internet shortcuts", "*.url"), ("all files", "*.*")))
+    path = filedialog.askopenfilename(parent=root, initialdir="/", filetypes=(("shortcuts", ".lnk .url"), ("all files", "*.*")))
+    if path.lower().endswith(('.lnk', '.url')):
+        #FIND THE TARGET OF THE LNK OR URL
     global selectedFile
     #print(path)
     if len(path) > 0:
