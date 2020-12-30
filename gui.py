@@ -2,10 +2,11 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from Person import Person
+import pylnk3
 import subprocess
+import webbrowser
 
 selectedFile = ""
-variable = 1
 
 root = Tk()
 root.title("Open file app")
@@ -24,15 +25,25 @@ def getDir():
         lblDir.config(text=path)
 
 def getFile():
-    path = filedialog.askopenfilename(parent=root, initialdir="/", filetypes=(("shortcuts", ".lnk .url"), ("all files", "*.*")))
-    #if path.lower().endswith(('.lnk', '.url')):
+    filepath = filedialog.askopenfilename(parent=root, initialdir="/", filetypes=(("shortcuts", ".lnk .url"), ("all files", "*.*")))
+    if filepath.lower().endswith(('.url')):
         #FIND THE TARGET OF THE LNK OR URL
+        url = ''
+        with open(filepath, "r") as infile:
+            for line in infile:
+                if (line.startswith('URL')):
+                    url = line[4:]
+                    break
+        print(url)
+    elif filepath.lower().endswith(('.lnk')):
+        target = pylnk3.parse(filepath).path.replace('\\','/')
+        print(target)
     global selectedFile
-    #print(path)
-    if len(path) > 0:
-        selectedFile = path
+    #print(filepath)
+    if len(filepath) > 0:
+        selectedFile = filepath
         print(selectedFile)
-        lblFile.config(text=path)
+        lblFile.config(text=filepath)
         
 def openFile(filePath):
     print("inside openFile function")
@@ -44,7 +55,8 @@ def openFile(filePath):
         print("You need to select a file before running it")
 
 def runSteamGame():
-    subprocess.Popen("C:/Program Files (x86)/Steam/Steam.exe -applaunch 750920")
+    #subprocess.Popen("C:/Program Files (x86)/Steam/Steam.exe -applaunch 750920")
+    webbrowser.open('steam://rungameid/861650')
     
 
 btnOpenDir = Button(root, text="Choose directory...", fg="black",command=getDir)
