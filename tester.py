@@ -28,6 +28,13 @@ def hasPerson(mylist,name): # check if there is a json object with the same 'nam
             return True
     return found
 
+def getPersonByName(mylist,name): # check if there is a json object with the same 'name' as arguement
+    found = False
+    for x in mylist:
+        if str(x["name"]).lower() == str(name).lower():
+            return x
+    return found
+
 def getAge(mylist,name): # return the age of the given arguement 'name', otherwise return 0
     for x in mylist:
         if str(x["name"]).lower() == str(name).lower():
@@ -84,6 +91,10 @@ else:
 writeObjToFile('data/people.json',peopleWithKey)
 print(peopleWithKey)
 
+myPerson = getPersonByName(peopleWithKey["people"],p4.name)
+print("myPerson value is : {}".format(myPerson))
+print(myPerson["name"])
+
 #p1 = Person("naz",35)
 #p2 = Person("joe",30)
 #p3 = Person("bev",26)
@@ -96,12 +107,12 @@ print(peopleWithKey)
 #people.append(json_p2)
 #people.append(json_p3)
 
-g1 = Game("tester","D:/Work/backups/Apps/Game Profile Manager/Game Profile Manager.exe","C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames")
-if not(hasGame(gamesWithKey["games"],g1.title)):
-    gamesWithKey["games"].append(g1.__dict__)
-else:
-    print("game already exists. Will not be added.")
+# g1 = Game("tester","D:/Work/backups/Apps/Game Profile Manager/Game Profile Manager.exe","C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames")
+# if not(hasGame(gamesWithKey["games"],g1.title)):
+#     gamesWithKey["games"].append(g1.__dict__)
+# else:
+#     print("game already exists. Will not be added.")
 
-writeObjToFile('data/games.json',gamesWithKey)
+# writeObjToFile('data/games.json',gamesWithKey)
 
-runGame(gamesWithKey["games"],"Session.")
+#runGame(gamesWithKey["games"],"Session.")
