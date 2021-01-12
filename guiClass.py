@@ -3,14 +3,9 @@ from tkinter import *
 from tkinter import filedialog
 from Person import Person
 import pylnk3
-import subprocess
 import webbrowser
 
 selectedFile = ""
-
-# root = Tk()
-# root.title("Open file app")
-# root.minsize(300,200)
 
 def main():
     root = Tk()
@@ -19,8 +14,6 @@ def main():
     runapp = MyApp(root)
     root.mainloop()
     return None
-
-
 
 class MyApp:
     def __init__(self, root):
@@ -145,4 +138,3 @@ main()
 # #print(".exe" in root.filename)
 # #subprocess.Popen([str(root.filename)])
 # root.mainloop()
-
