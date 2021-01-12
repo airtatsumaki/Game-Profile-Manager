@@ -50,21 +50,21 @@ class MyApp:
 class HomePage:
     def __init__(self, root, controller):
         self.root = root
-        self.controller = controller
+        self.container = controller
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
-        self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:controller.raise_frame(UserPage))
+        self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:self.container.raise_frame(UserPage))
         self.btnUserPage.pack()
 
 class UserPage:
     def __init__(self, root, controller):
         self.root = root
-        self.controller = controller
+        self.container = controller
         self.myFrame = Frame(self.root)
         self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
         self.lblUserTitle.pack()
-        self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:controller.raise_frame(HomePage))
+        self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:self.container.raise_frame(HomePage))
         self.btnHomePage.pack()
 
 main()
