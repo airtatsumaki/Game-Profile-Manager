@@ -52,7 +52,6 @@ class HomePage:
         self.root = root
         self.controller = controller
         self.myFrame = Frame(self.root)
-        #self.homePage.pack() 
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
         self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:controller.raise_frame(UserPage))
@@ -63,7 +62,6 @@ class UserPage:
         self.root = root
         self.controller = controller
         self.myFrame = Frame(self.root)
-        #self.homePage.pack() 
         self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
         self.lblUserTitle.pack()
         self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:controller.raise_frame(HomePage))
