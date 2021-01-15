@@ -1,11 +1,9 @@
 import os
-from tkinter import *
-from tkinter import filedialog
-from Person import Person
+import json
 import pylnk3
 import webbrowser
-
-selectedFile = ""
+from tkinter import *
+from tkinter import filedialog
 
 def main():
     root = Tk()
@@ -26,21 +24,11 @@ class MyApp:
             page.myFrame.place(x=0, y=0, width=300, height=200)
         
         self.raise_frame(HomePage)
-        #x = HomePage(self.root)
-        #self.frames[HomePage] = x.homePage
-        # x.homePage.pack()
-        # self.raise_frame(HomePage)
-        # self.root.title("Open file app")
-        # self.lblDir = Label(self.root, text="select a directory and this text will update")
-        # self.lblDir.pack()
-        # self.btnOpenDir = Button(self.root, text="Choose directory...", fg="black", command=self.getDir)
-        # self.btnOpenDir.pack()
-        # self.btnUserPage = Button(self.root, text="Go to user page", fg="black", command=lambda:raise_frame(page1))
-        #self.root.mainloop()
+
     def raise_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
-        return None
+        
     # def getDir(self):
     #     self.path = filedialog.askdirectory(initialdir = "/",title = "Select directory",mustexist=True)
     #     #print(self.path)
@@ -50,23 +38,80 @@ class MyApp:
 class HomePage:
     def __init__(self, root, controller):
         self.root = root
-        self.container = controller
+        self.controller = controller
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
-        self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:self.container.raise_frame(UserPage))
+        self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:self.controller.raise_frame(UserPage))
         self.btnUserPage.pack()
+        self.btnRunGame = Button(self.myFrame, text="Run the game", fg="black", command=lambda:self.runGame("me","red dead 2"))
+        self.btnRunGame.pack()
+
+    def runGame(self, currentUser, currentGame):
+        self.currentGame = currentGame
+        print("run " + self.currentGame)
+        
+        return None
+
 
 class UserPage:
     def __init__(self, root, controller):
         self.root = root
-        self.container = controller
+        self.controller = controller
+        self.userFile = 'resources/profiles.json'
+        if self.readFile(self.userFile):
+            self.userJSON = self.readFile(self.userFile)
+        else:
+            self.userJSON = {"profiles":[]}
+        print(self.userJSON)
         self.myFrame = Frame(self.root)
         self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
         self.lblUserTitle.pack()
-        self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:self.container.raise_frame(HomePage))
+        self.lblAddUser = Label(self.myFrame, text="SPECIFY A USERNAME TO ADD")
+        self.lblAddUser.pack()
+        self.entUsername = Entry(self.myFrame)
+        self.entUsername.pack()
+        self.btnAddUser = Button(self.myFrame, text="ADD USER", fg="black", command=lambda:self.addUser(self.entUsername))
+        self.btnAddUser.pack()
+        self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
+    
+    def readFile(self, path):
+        try:
+            with open(path) as json_file:
+                myjson = json.load(json_file) # load json file if present
+            return myjson
+        except Exception:
+            return False
+    
+    def writeObjToFile(self, path, jsonObj):
+        try:
+            with open(path, "w") as f:
+                json.dump(jsonObj, f, indent=4) #write people list
+        except Exception:
+            return False
 
+    def addUser(self, entBox):
+        #self.userJSON = self.readFile(self.userFile)
+        #print(self.userJSON)
+        
+        trimmed = entBox.get().strip()
+        if trimmed:
+            found = False
+            for x in self.userJSON["profiles"]:
+                if x["name"] == trimmed:
+                    found = True
+            if not found:
+                self.userJSON["profiles"].append({'name': trimmed})
+                self.writeObjToFile(self.userFile, self.userJSON)
+                print("user " + trimmed + " added to the file")
+            else:
+                print("User already exists")
+        else:
+            print("Please provide a username to add. The Entry box should be cleared")
+            entBox.delete(0,END)
+        # 
+        # return None
 main()
 
 # p1 = Person("Naz",35)
