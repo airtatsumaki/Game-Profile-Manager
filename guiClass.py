@@ -4,6 +4,7 @@ import pylnk3
 import webbrowser
 from tkinter import *
 from tkinter import filedialog
+from tkinter import ttk
 
 def main():
     root = Tk()
@@ -42,9 +43,9 @@ class HomePage:
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
-        self.btnUserPage = Button(self.myFrame, text="Go to user page", fg="black", command=lambda:self.controller.raise_frame(UserPage))
+        self.btnUserPage = ttk.Button(self.myFrame, text="Go to user page", command=lambda:self.controller.raise_frame(UserPage))
         self.btnUserPage.pack()
-        self.btnRunGame = Button(self.myFrame, text="Run the game", fg="black", command=lambda:self.runGame("me","red dead 2"))
+        self.btnRunGame = ttk.Button(self.myFrame, text="Run the game", command=lambda:self.runGame("me","red dead 2"))
         self.btnRunGame.pack()
 
     def runGame(self, currentUser, currentGame):
@@ -71,9 +72,9 @@ class UserPage:
         self.lblAddUser.pack()
         self.entUsername = Entry(self.myFrame)
         self.entUsername.pack()
-        self.btnAddUser = Button(self.myFrame, text="ADD USER", fg="black", command=lambda:self.addUser(self.entUsername))
+        self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
-        self.btnHomePage = Button(self.myFrame, text="Go back to home page", fg="black", command=lambda:self.controller.raise_frame(HomePage))
+        self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
     
     def readFile(self, path):
