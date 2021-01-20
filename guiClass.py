@@ -74,9 +74,16 @@ class UserPage:
         self.entUsername.pack()
         self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
+        self.userList = []
+        for x in self.userJSON["profiles"]:
+            self.userList.append(x["name"])
+        self.cmbUserList = ttk.Combobox(self.myFrame, values=self.userList)
+        self.cmbUserList.pack()
+        self.btnDeleteUser = ttk.Button(self.myFrame, text="DELETE USER", command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnDeleteUser.pack()
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
-    
+
     def readFile(self, path):
         try:
             with open(path) as json_file:
@@ -95,7 +102,6 @@ class UserPage:
     def addUser(self, entBox):
         #self.userJSON = self.readFile(self.userFile)
         #print(self.userJSON)
-        
         trimmed = entBox.get().strip()
         if trimmed:
             found = False
@@ -104,15 +110,35 @@ class UserPage:
                     found = True
             if not found:
                 self.userJSON["profiles"].append({'name': trimmed})
+                self.userList = []
+                for x in self.userJSON["profiles"]:
+                    self.userList.append(x["name"])
                 self.writeObjToFile(self.userFile, self.userJSON)
                 print("user " + trimmed + " added to the file")
+                self.cmbUserList['values'] = self.userList
+                entBox.delete(0,END)
             else:
                 print("User already exists")
         else:
             print("Please provide a username to add. The Entry box should be cleared")
             entBox.delete(0,END)
-        # 
-        # return None
+
+    def deleteUser(self, user):
+        if user.get():
+            print("user provided")
+            self.userJSON["profiles"].remove({'name': user.get()})
+            print(self.userJSON)
+            self.userList = []
+            for x in self.userJSON["profiles"]:
+                self.userList.append(x["name"])
+            self.writeObjToFile(self.userFile, self.userJSON)
+            print("user " + user.get() + " removed from file")
+            self.cmbUserList['values'] = self.userList
+            self.cmbUserList.set('')
+        else:
+            print("NO user provided")
+        #print(user.get() == '')
+
 main()
 
 # p1 = Person("Naz",35)
