@@ -12,7 +12,6 @@ def main():
     root.minsize(300,200)
     runapp = MyApp(root)
     root.mainloop()
-    return None
 
 class MyApp:
     def __init__(self, root):
@@ -51,9 +50,6 @@ class HomePage:
     def runGame(self, currentUser, currentGame):
         self.currentGame = currentGame
         print("run " + self.currentGame)
-        
-        return None
-
 
 class UserPage:
     def __init__(self, root, controller):
