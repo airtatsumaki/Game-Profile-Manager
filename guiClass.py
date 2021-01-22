@@ -48,8 +48,8 @@ class HomePage:
         self.btnRunGame.pack()
 
     def runGame(self, currentUser, currentGame):
-        self.currentGame = currentGame
-        print("run " + self.currentGame)
+        #self.currentGame = currentGame
+        print("run " + currentGame)
 
 class UserPage:
     def __init__(self, root, controller):
