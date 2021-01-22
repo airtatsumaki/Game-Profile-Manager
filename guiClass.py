@@ -100,8 +100,6 @@ class UserPage:
             return False
 
     def addUser(self, entBox):
-        #self.userJSON = self.readFile(self.userFile)
-        #print(self.userJSON)
         trimmed = entBox.get().strip()
         if trimmed:
             found = False
@@ -110,10 +108,6 @@ class UserPage:
                     found = True
             if not found:
                 self.userJSON["profiles"].append({'name': trimmed})
-                # self.userList = []
-                # for x in self.userJSON["profiles"]:
-                #     self.userList.append(x["name"])
-                # self.writeObjToFile(self.userFile, self.userJSON)
                 print("user " + trimmed + " added to the file")
                 self.updateUserList()
                 self.cmbUserList['values'] = self.userList
@@ -128,18 +122,12 @@ class UserPage:
         if user.get():
             print("user provided")
             self.userJSON["profiles"].remove({'name': user.get()})
-            # print(self.userJSON)
-            # self.userList = []
-            # for x in self.userJSON["profiles"]:
-            #     self.userList.append(x["name"])
-            # self.writeObjToFile(self.userFile, self.userJSON)
             print("user " + user.get() + " removed from file")
             self.updateUserList()
             self.cmbUserList['values'] = self.userList
             self.cmbUserList.set('')
         else:
-            print("NO user provided")
-        #print(user.get() == '')
+            print("No user provided")
 
     def updateUserList(self):
         self.userList = []
