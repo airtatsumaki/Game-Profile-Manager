@@ -110,11 +110,12 @@ class UserPage:
                     found = True
             if not found:
                 self.userJSON["profiles"].append({'name': trimmed})
-                self.userList = []
-                for x in self.userJSON["profiles"]:
-                    self.userList.append(x["name"])
-                self.writeObjToFile(self.userFile, self.userJSON)
+                # self.userList = []
+                # for x in self.userJSON["profiles"]:
+                #     self.userList.append(x["name"])
+                # self.writeObjToFile(self.userFile, self.userJSON)
                 print("user " + trimmed + " added to the file")
+                self.updateUserList()
                 self.cmbUserList['values'] = self.userList
                 entBox.delete(0,END)
             else:
@@ -127,18 +128,25 @@ class UserPage:
         if user.get():
             print("user provided")
             self.userJSON["profiles"].remove({'name': user.get()})
-            print(self.userJSON)
-            self.userList = []
-            for x in self.userJSON["profiles"]:
-                self.userList.append(x["name"])
-            self.writeObjToFile(self.userFile, self.userJSON)
+            # print(self.userJSON)
+            # self.userList = []
+            # for x in self.userJSON["profiles"]:
+            #     self.userList.append(x["name"])
+            # self.writeObjToFile(self.userFile, self.userJSON)
             print("user " + user.get() + " removed from file")
+            self.updateUserList()
             self.cmbUserList['values'] = self.userList
             self.cmbUserList.set('')
         else:
             print("NO user provided")
         #print(user.get() == '')
 
+    def updateUserList(self):
+        self.userList = []
+        for x in self.userJSON["profiles"]:
+            self.userList.append(x["name"])
+        self.writeObjToFile(self.userFile, self.userJSON)
+        self.cmbUserList['values'] = self.userList
 main()
 
 # p1 = Person("Naz",35)
