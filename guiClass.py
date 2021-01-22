@@ -117,11 +117,14 @@ class UserPage:
     def deleteUser(self, user):
         if user.get():
             print("user provided")
-            self.userJSON["profiles"].remove({'name': user.get()})
-            print("user " + user.get() + " removed from file")
-            self.updateUserList()
-            self.cmbUserList['values'] = self.userList
-            self.cmbUserList.set('')
+            try:
+                self.userJSON["profiles"].remove({'name': user.get()})
+                print("user " + user.get() + " removed from file")
+                self.updateUserList()
+                self.cmbUserList['values'] = self.userList
+                self.cmbUserList.set('')
+            except Exception:
+                print("User does not exist")
         else:
             print("No user provided")
 
