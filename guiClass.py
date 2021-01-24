@@ -8,8 +8,8 @@ from tkinter import ttk
 
 def main():
     root = Tk()
-    root.title("Open file app")
-    root.minsize(300,300)
+    root.title("Game Profile Manager")
+    root.minsize(300,400)
     runapp = MyApp(root)
     root.mainloop()
 
@@ -21,7 +21,7 @@ class MyApp:
         for x in (HomePage, UserPage, GamePage):
             page = x(self.root, self)
             self.frames[x] = page.myFrame
-            page.myFrame.place(x=0, y=0, width=300, height=300)
+            page.myFrame.place(x=0, y=0, width=300, height=400)
         
         self.raise_frame(HomePage)
 
@@ -143,8 +143,10 @@ class GamePage:
         self.controller = controller
         self.gameFile = 'resources/games.json'
         self.myFrame = Frame(self.root)
-        self.lblGameTitle = Label(self.myFrame, text="enter game name")
+        self.lblGameTitle = Label(self.myFrame, text="WELCOME TO THE GAME PAGE")
         self.lblGameTitle.pack()
+        self.lblGameName = Label(self.myFrame, text="enter game name")
+        self.lblGameName.pack()
         self.entGamename = Entry(self.myFrame)
         self.entGamename.pack()
         self.lblGamePath = Label(self.myFrame, text="game path '.exe' or 'steam://rungameid/XXXXXX'")
@@ -160,6 +162,17 @@ class GamePage:
         self.btnGameSaveBrowse = ttk.Button(self.myFrame, text="Browse ...")#, command=lambda:self.deleteUser(self.cmbUserList))
         self.btnGameSaveBrowse.pack()
         self.gameList = []
+        self.gameList = ["game1","game2"]
+        self.btnAddGame = ttk.Button(self.myFrame, text="Add game")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnAddGame.pack()
+        self.lblDeleteGame = Label(self.myFrame, text="delete game")
+        self.lblDeleteGame.pack()
+        self.cmbGameList = ttk.Combobox(self.myFrame, values=self.gameList)
+        self.cmbGameList.pack()
+        self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnDeleteGame.pack()
+
+
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
 
