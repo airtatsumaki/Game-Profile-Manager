@@ -16,18 +16,18 @@ def main():
 class MyApp:
     def __init__(self, root):
         self.root = root
-        self.frames = {}
+        self.pages = {}
 
         for x in (HomePage, UserPage, GamePage):
             page = x(self.root, self)
-            self.frames[x] = page.myFrame
+            #self.frames[x] = self.page.myFrame
+            self.pages[x] = page
             page.myFrame.place(x=0, y=0, width=300, height=400)
         
         self.raise_frame(HomePage)
 
     def raise_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
+        page = self.pages[cont].myFrame.tkraise()
         
     # def getDir(self):
     #     self.path = filedialog.askdirectory(initialdir = "/",title = "Select directory",mustexist=True)
@@ -39,19 +39,45 @@ class HomePage:
     def __init__(self, root, controller):
         self.root = root
         self.controller = controller
+        self.userFile = 'resources/profiles.json'
+        self.gameList = ["game 1", "game 2"]
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
+        self.lblSelectUser = Label(self.myFrame, text="select user")
+        self.lblSelectUser.pack()
+        self.userList = []
+        if self.readFile(self.userFile):
+            self.userJSON = self.readFile(self.userFile)
+        else:
+            self.userJSON = {"profiles":[]}
+        print(self.userJSON)
+        for x in self.userJSON["profiles"]:
+            self.userList.append(x["name"])
+        self.cmbUser = ttk.Combobox(self.myFrame, values=self.userList)
+        self.cmbUser.pack()
+        self.lblSelectGame = Label(self.myFrame, text="select game")
+        self.lblSelectGame.pack()
+        self.cmbGame = ttk.Combobox(self.myFrame, values=self.gameList)
+        self.cmbGame.pack()
+        self.btnRunGame = ttk.Button(self.myFrame, text="Run the game", command=lambda:self.runGame(self.cmbUser,self.cmbGame))
+        self.btnRunGame.pack()
         self.btnUserPage = ttk.Button(self.myFrame, text="Go to user page", command=lambda:self.controller.raise_frame(UserPage))
         self.btnUserPage.pack()
         self.btnGamePage = ttk.Button(self.myFrame, text="Go to game page", command=lambda:self.controller.raise_frame(GamePage))
         self.btnGamePage.pack()
-        self.btnRunGame = ttk.Button(self.myFrame, text="Run the game", command=lambda:self.runGame("me","red dead 2"))
-        self.btnRunGame.pack()
+    
+    def readFile(self, path):
+        try:
+            with open(path) as json_file:
+                myjson = json.load(json_file) # load json file if present
+            return myjson
+        except Exception:
+            return False
 
     def runGame(self, currentUser, currentGame):
         #self.currentGame = currentGame
-        print("run " + currentGame)
+        print(currentUser.get() + " ran the game : " + currentGame.get())
 
 class UserPage:
     def __init__(self, root, controller):
@@ -100,10 +126,6 @@ class UserPage:
     def addUser(self, entBox):
         trimmed = entBox.get().strip()
         if trimmed:
-            # found = False
-            # for x in self.userJSON["profiles"]:
-            #     if x["name"] == trimmed:
-            #         found = True
             if {'name': trimmed} not in self.userJSON["profiles"]:
                 self.userJSON["profiles"].append({'name': trimmed})
                 print("user " + trimmed + " added to the file")
