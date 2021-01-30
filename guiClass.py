@@ -13,17 +13,22 @@ def main():
     runapp = MyApp(root)
     root.mainloop()
 
+class Data:
+    pass
+
 class MyApp:
     def __init__(self, root):
         self.root = root
         self.pages = {}
+        dataObj = Data()
 
         for x in (HomePage, UserPage, GamePage):
-            page = x(self.root, self)
+            page = x(self.root, self, dataObj)
             #self.frames[x] = self.page.myFrame
             self.pages[x] = page
             page.myFrame.place(x=0, y=0, width=300, height=400)
         
+
         self.raise_frame(HomePage)
 
     def raise_frame(self, cont):
@@ -36,9 +41,10 @@ class MyApp:
     #         self.lblDir.config(text=self.path)
 
 class HomePage:
-    def __init__(self, root, controller):
+    def __init__(self, root, controller, data):
         self.root = root
         self.controller = controller
+        self.data = data
         self.userFile = 'resources/profiles.json'
         self.gameList = ["game 1", "game 2"]
         self.myFrame = Frame(self.root)
@@ -66,6 +72,13 @@ class HomePage:
         self.btnUserPage.pack()
         self.btnGamePage = ttk.Button(self.myFrame, text="Go to game page", command=lambda:self.controller.raise_frame(GamePage))
         self.btnGamePage.pack()
+        self.btnAddGame = ttk.Button(self.myFrame, text="Add game 3 to this list", command=self.addGame)
+        self.btnAddGame.pack()
+    
+    def addGame(self):
+        self.gameList.append("game 3")
+        self.cmbGame['values'] = self.gameList
+        print(self.gameList)
     
     def readFile(self, path):
         try:
@@ -80,9 +93,10 @@ class HomePage:
         print(currentUser.get() + " ran the game : " + currentGame.get())
 
 class UserPage:
-    def __init__(self, root, controller):
+    def __init__(self, root, controller, data):
         self.root = root
         self.controller = controller
+        self.data = data
         self.userFile = 'resources/profiles.json'
         self.myFrame = Frame(self.root)
         self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
@@ -162,9 +176,10 @@ class UserPage:
         self.cmbUserList['values'] = self.userList
 
 class GamePage:
-    def __init__(self, root, controller):
+    def __init__(self, root, controller, data):
         self.root = root
         self.controller = controller
+        self.data = data
         self.gameFile = 'resources/games.json'
         self.myFrame = Frame(self.root)
         self.lblGameTitle = Label(self.myFrame, text="WELCOME TO THE GAME PAGE")
