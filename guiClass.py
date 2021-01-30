@@ -131,6 +131,7 @@ class UserPage:
                 print("user " + trimmed + " added to the file")
                 self.updateUserList()
                 self.cmbUserList['values'] = self.userList
+                self.controller.pages[HomePage].cmbUser['values'] = self.userList
                 entBox.delete(0,END)
             else:
                 print("User already exists")
@@ -146,6 +147,7 @@ class UserPage:
                 print("user " + user.get() + " removed from file")
                 self.updateUserList()
                 self.cmbUserList['values'] = self.userList
+                self.controller.pages[HomePage].cmbUser['values'] = self.userList
                 self.cmbUserList.set('')
             else:
                 print("User does not exist")
