@@ -15,7 +15,25 @@ def main():
 
 class Data:
     def __init__(self):
-        pass
+        self.userList = []
+        self.userFile = 'resources/profiles.json'
+        self.gameList = []
+        self.gameFile = 'resources/games.json'
+        if self.readFile(self.userFile):
+            self.userJSON = self.readFile(self.userFile)
+        else:
+            self.userJSON = {"profiles":[]}
+        #print(self.userJSON)
+        for x in self.userJSON["profiles"]:
+            self.userList.append(x["name"])
+        
+        if self.readFile(self.gameFile):
+            self.gameJSON = self.readFile(self.gameFile)
+        else:
+            self.gameJSON = {"games":[]}
+        #print(self.gameJSON)
+        for x in self.gameJSON["games"]:
+            self.gameList.append(x["title"])
 
     def readFile(self, path):
         try:
@@ -31,19 +49,32 @@ class Data:
                 json.dump(jsonObj, f, indent=4) #write people list
         except Exception:
             return False
+    
+    def addUser(self, user):
+        pass
+    
+    def deleteUser(self, user):
+        pass
+    
+    def addGame(self, user):
+        pass
+    
+    def deleteGame(self, user):
+        pass
 
 class MyApp:
     def __init__(self, root):
         self.root = root
         self.pages = {}
         dataObj = Data()
+        print("user list is: {}".format(dataObj.userList))
+        print("game list is: {}".format(dataObj.gameList))
 
         for x in (HomePage, UserPage, GamePage):
             page = x(self.root, self, dataObj)
             #self.frames[x] = self.page.myFrame
             self.pages[x] = page
             page.myFrame.place(x=0, y=0, width=300, height=400)
-        
 
         self.raise_frame(HomePage)
 
@@ -61,27 +92,28 @@ class HomePage:
         self.root = root
         self.controller = controller
         self.data = data
-        self.userFile = 'resources/profiles.json'
-        self.gameList = ["game 1", "game 2"]
+        #self.userFile = 'resources/profiles.json'
+        #self.gameList = ["game 1", "game 2"]
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
         self.lblSelectUser = Label(self.myFrame, text="select user")
         self.lblSelectUser.pack()
-        self.userList = []
-        if self.data.readFile(self.userFile):
-            #self.userJSON = self.readFile(self.userFile)
-            self.userJSON = self.data.readFile(self.userFile)
-        else:
-            self.userJSON = {"profiles":[]}
-        print(self.userJSON)
-        for x in self.userJSON["profiles"]:
-            self.userList.append(x["name"])
-        self.cmbUser = ttk.Combobox(self.myFrame, values=self.userList)
+        #self.userList = []
+        # if self.data.readFile(self.userFile):
+        #     #self.userJSON = self.readFile(self.userFile)
+        #     self.userJSON = self.data.readFile(self.userFile)
+        # else:
+        #     self.userJSON = {"profiles":[]}
+        # print(self.userJSON)
+        # for x in self.userJSON["profiles"]:
+        #     self.userList.append(x["name"])
+        #self.cmbUser = ttk.Combobox(self.myFrame, values=self.userList)
+        self.cmbUser = ttk.Combobox(self.myFrame, values=self.data.userList)
         self.cmbUser.pack()
         self.lblSelectGame = Label(self.myFrame, text="select game")
         self.lblSelectGame.pack()
-        self.cmbGame = ttk.Combobox(self.myFrame, values=self.gameList)
+        self.cmbGame = ttk.Combobox(self.myFrame, values=self.data.gameList)
         self.cmbGame.pack()
         self.btnRunGame = ttk.Button(self.myFrame, text="Run the game", command=lambda:self.runGame(self.cmbUser,self.cmbGame))
         self.btnRunGame.pack()
@@ -93,7 +125,7 @@ class HomePage:
         self.btnAddGame.pack()
     
     def addGame(self):
-        self.gameList.append("game 3")
+        self.data.gameList.append("game 3")
         self.cmbGame['values'] = self.gameList
         print(self.gameList)
     
