@@ -14,7 +14,23 @@ def main():
     root.mainloop()
 
 class Data:
-    pass
+    def __init__(self):
+        pass
+
+    def readFile(self, path):
+        try:
+            with open(path) as json_file:
+                myjson = json.load(json_file) # load json file if present
+            return myjson
+        except Exception:
+            return False
+    
+    def writeObjToFile(self, path, jsonObj):
+        try:
+            with open(path, "w") as f:
+                json.dump(jsonObj, f, indent=4) #write people list
+        except Exception:
+            return False
 
 class MyApp:
     def __init__(self, root):
@@ -53,8 +69,9 @@ class HomePage:
         self.lblSelectUser = Label(self.myFrame, text="select user")
         self.lblSelectUser.pack()
         self.userList = []
-        if self.readFile(self.userFile):
-            self.userJSON = self.readFile(self.userFile)
+        if self.data.readFile(self.userFile):
+            #self.userJSON = self.readFile(self.userFile)
+            self.userJSON = self.data.readFile(self.userFile)
         else:
             self.userJSON = {"profiles":[]}
         print(self.userJSON)
@@ -80,13 +97,13 @@ class HomePage:
         self.cmbGame['values'] = self.gameList
         print(self.gameList)
     
-    def readFile(self, path):
-        try:
-            with open(path) as json_file:
-                myjson = json.load(json_file) # load json file if present
-            return myjson
-        except Exception:
-            return False
+    # def readFile(self, path):
+    #     try:
+    #         with open(path) as json_file:
+    #             myjson = json.load(json_file) # load json file if present
+    #         return myjson
+    #     except Exception:
+    #         return False
 
     def runGame(self, currentUser, currentGame):
         #self.currentGame = currentGame
@@ -108,8 +125,9 @@ class UserPage:
         self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
         self.userList = []
-        if self.readFile(self.userFile):
-            self.userJSON = self.readFile(self.userFile)
+        if self.data.readFile(self.userFile):
+            #self.userJSON = self.readFile(self.userFile)
+            self.userJSON = self.data.readFile(self.userFile)
         else:
             self.userJSON = {"profiles":[]}
         print(self.userJSON)
@@ -122,20 +140,20 @@ class UserPage:
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
 
-    def readFile(self, path):
-        try:
-            with open(path) as json_file:
-                myjson = json.load(json_file) # load json file if present
-            return myjson
-        except Exception:
-            return False
+    # def readFile(self, path):
+    #     try:
+    #         with open(path) as json_file:
+    #             myjson = json.load(json_file) # load json file if present
+    #         return myjson
+    #     except Exception:
+    #         return False
     
-    def writeObjToFile(self, path, jsonObj):
-        try:
-            with open(path, "w") as f:
-                json.dump(jsonObj, f, indent=4) #write people list
-        except Exception:
-            return False
+    # def writeObjToFile(self, path, jsonObj):
+    #     try:
+    #         with open(path, "w") as f:
+    #             json.dump(jsonObj, f, indent=4) #write people list
+    #     except Exception:
+    #         return False
 
     def addUser(self, entBox):
         trimmed = entBox.get().strip()
@@ -172,7 +190,8 @@ class UserPage:
         self.userList = []
         for x in self.userJSON["profiles"]:
             self.userList.append(x["name"])
-        self.writeObjToFile(self.userFile, self.userJSON)
+        #self.writeObjToFile(self.userFile, self.userJSON)
+        self.data.writeObjToFile(self.userFile, self.userJSON)
         self.cmbUserList['values'] = self.userList
 
 class GamePage:
