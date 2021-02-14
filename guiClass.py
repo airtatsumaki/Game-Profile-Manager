@@ -200,8 +200,9 @@ class UserPage:
                 self.data.userJSON["profiles"].append({'name': trimmed})
                 print("user " + trimmed + " added to the file")
                 self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
-                self.cmbUserList['values'] = self.data.getUserList()
-                self.controller.pages[HomePage].cmbUser['values'] = self.data.getUserList()
+                updatedUserList = self.data.getUserList()
+                self.cmbUserList['values'] = updatedUserList
+                self.controller.pages[HomePage].cmbUser['values'] = updatedUserList
                 entBox.delete(0,END)
             else:
                 print("User already exists")
@@ -216,8 +217,9 @@ class UserPage:
                 self.data.userJSON["profiles"].remove({'name': user.get()})
                 print("user " + user.get() + " removed from file")
                 self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
-                self.cmbUserList['values'] = self.data.getUserList()
-                self.controller.pages[HomePage].cmbUser['values'] = self.data.getUserList()
+                updatedUserList = self.data.getUserList()
+                self.cmbUserList['values'] = updatedUserList
+                self.controller.pages[HomePage].cmbUser['values'] = updatedUserList
                 self.cmbUserList.set('')
             else:
                 print("User does not exist")
