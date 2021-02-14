@@ -50,16 +50,22 @@ class Data:
         except Exception:
             return False
     
+    def getUserList(self):
+        userList = []
+        for x in self.userJSON["profiles"]:
+            userList.append(x["name"])
+        return userList
+
     def addUser(self, user):
         pass
     
     def deleteUser(self, user):
         pass
     
-    def addGame(self, user):
+    def addGame(self, game):
         pass
     
-    def deleteGame(self, user):
+    def deleteGame(self, game):
         pass
 
 class MyApp:
@@ -146,7 +152,7 @@ class UserPage:
         self.root = root
         self.controller = controller
         self.data = data
-        self.userFile = 'resources/profiles.json'
+        self.userFile = self.data.userFile
         self.myFrame = Frame(self.root)
         self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
         self.lblUserTitle.pack()
@@ -156,16 +162,16 @@ class UserPage:
         self.entUsername.pack()
         self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
-        self.userList = []
-        if self.data.readFile(self.userFile):
-            #self.userJSON = self.readFile(self.userFile)
-            self.userJSON = self.data.readFile(self.userFile)
-        else:
-            self.userJSON = {"profiles":[]}
-        print(self.userJSON)
-        for x in self.userJSON["profiles"]:
-            self.userList.append(x["name"])
-        self.cmbUserList = ttk.Combobox(self.myFrame, values=self.userList)
+        # self.userList = []
+        # if self.data.readFile(self.userFile):
+        #     #self.userJSON = self.readFile(self.userFile)
+        #     self.userJSON = self.data.readFile(self.userFile)
+        # else:
+        #     self.userJSON = {"profiles":[]}
+        # print(self.userJSON)
+        # for x in self.userJSON["profiles"]:
+        #     self.userList.append(x["name"])
+        self.cmbUserList = ttk.Combobox(self.myFrame, values=self.data.userList)
         self.cmbUserList.pack()
         self.btnDeleteUser = ttk.Button(self.myFrame, text="DELETE USER", command=lambda:self.deleteUser(self.cmbUserList))
         self.btnDeleteUser.pack()
@@ -190,12 +196,12 @@ class UserPage:
     def addUser(self, entBox):
         trimmed = entBox.get().strip()
         if trimmed:
-            if {'name': trimmed} not in self.userJSON["profiles"]:
-                self.userJSON["profiles"].append({'name': trimmed})
+            if {'name': trimmed} not in self.data.userJSON["profiles"]:
+                self.data.userJSON["profiles"].append({'name': trimmed})
                 print("user " + trimmed + " added to the file")
-                self.updateUserList()
-                self.cmbUserList['values'] = self.userList
-                self.controller.pages[HomePage].cmbUser['values'] = self.userList
+                self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
+                self.cmbUserList['values'] = self.data.getUserList()
+                self.controller.pages[HomePage].cmbUser['values'] = self.data.getUserList()
                 entBox.delete(0,END)
             else:
                 print("User already exists")
@@ -206,32 +212,24 @@ class UserPage:
     def deleteUser(self, user):
         if user.get():
             print("user provided")
-            if {'name': user.get()} in self.userJSON["profiles"]:
-                self.userJSON["profiles"].remove({'name': user.get()})
+            if {'name': user.get()} in self.data.userJSON["profiles"]:
+                self.data.userJSON["profiles"].remove({'name': user.get()})
                 print("user " + user.get() + " removed from file")
-                self.updateUserList()
-                self.cmbUserList['values'] = self.userList
-                self.controller.pages[HomePage].cmbUser['values'] = self.userList
+                self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
+                self.cmbUserList['values'] = self.data.getUserList()
+                self.controller.pages[HomePage].cmbUser['values'] = self.data.getUserList()
                 self.cmbUserList.set('')
             else:
                 print("User does not exist")
         else:
             print("No user provided")
 
-    def updateUserList(self):
-        self.userList = []
-        for x in self.userJSON["profiles"]:
-            self.userList.append(x["name"])
-        #self.writeObjToFile(self.userFile, self.userJSON)
-        self.data.writeObjToFile(self.userFile, self.userJSON)
-        self.cmbUserList['values'] = self.userList
-
 class GamePage:
     def __init__(self, root, controller, data):
         self.root = root
         self.controller = controller
         self.data = data
-        self.gameFile = 'resources/games.json'
+        self.gameFile = self.data.gameFile
         self.myFrame = Frame(self.root)
         self.lblGameTitle = Label(self.myFrame, text="WELCOME TO THE GAME PAGE")
         self.lblGameTitle.pack()
@@ -251,13 +249,13 @@ class GamePage:
         self.entGameSave.pack()
         self.btnGameSaveBrowse = ttk.Button(self.myFrame, text="Browse ...")#, command=lambda:self.deleteUser(self.cmbUserList))
         self.btnGameSaveBrowse.pack()
-        self.gameList = []
-        self.gameList = ["game1","game2"]
+        #self.gameList = []
+        #self.gameList = ["game1","game2"]
         self.btnAddGame = ttk.Button(self.myFrame, text="Add game")#, command=lambda:self.deleteUser(self.cmbUserList))
         self.btnAddGame.pack()
         self.lblDeleteGame = Label(self.myFrame, text="delete game")
         self.lblDeleteGame.pack()
-        self.cmbGameList = ttk.Combobox(self.myFrame, values=self.gameList)
+        self.cmbGameList = ttk.Combobox(self.myFrame, values=self.data.gameList)
         self.cmbGameList.pack()
         self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game")#, command=lambda:self.deleteUser(self.cmbUserList))
         self.btnDeleteGame.pack()
