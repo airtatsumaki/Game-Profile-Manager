@@ -13,63 +13,6 @@ def main():
     runapp = MyApp(root)
     root.mainloop()
 
-class Data:
-    def __init__(self):
-        self.userList = []
-        self.userFile = 'resources/profiles.json'
-        self.gameList = []
-        self.gameFile = 'resources/games.json'
-        if self.readFile(self.userFile):
-            self.userJSON = self.readFile(self.userFile)
-        else:
-            self.userJSON = {"profiles":[]}
-        self.userList = self.getUserList()
-        
-        if self.readFile(self.gameFile):
-            self.gameJSON = self.readFile(self.gameFile)
-        else:
-            self.gameJSON = {"games":[]}
-        self.gameList = self.getGameList()
-
-    def readFile(self, path):
-        try:
-            with open(path) as json_file:
-                myjson = json.load(json_file) # load json file if present
-            return myjson
-        except Exception:
-            return False
-    
-    def writeObjToFile(self, path, jsonObj):
-        try:
-            with open(path, "w") as f:
-                json.dump(jsonObj, f, indent=4) #write people list
-        except Exception:
-            return False
-    
-    def getUserList(self):
-        userList = []
-        for x in self.userJSON["profiles"]:
-            userList.append(x["name"])
-        return userList
-
-    def getGameList(self):
-        gameList = []
-        for x in self.gameJSON["games"]:
-            gameList.append(x["title"])
-        return gameList
-
-    def addUser(self, user):
-        pass
-    
-    def deleteUser(self, user):
-        pass
-    
-    def addGame(self, game):
-        pass
-    
-    def deleteGame(self, game):
-        pass
-
 class MyApp:
     def __init__(self, root):
         self.root = root
@@ -88,6 +31,103 @@ class MyApp:
     def raise_frame(self, cont):
         page = self.pages[cont].myFrame.tkraise()
 
+    def updateHomePageUserList(self, userList):
+        self.pages[HomePage].updateUserList(userList)
+    
+    def updateHomePageGameList(self, gameList):
+        self.pages[HomePage].updateGameList(gameList)
+
+class Data:
+    def __init__(self):
+        self.userList = []
+        self.userFile = 'resources/profiles.json'
+        self.gameList = []
+        self.gameFile = 'resources/games.json'
+        if self.readFile(self.userFile):
+            self.userJSON = self.readFile(self.userFile)
+        else:
+            self.userJSON = {"profiles":[]}
+        for x in self.userJSON["profiles"]:
+             self.userList.append(x["name"])
+        
+        if self.readFile(self.gameFile):
+            self.gameJSON = self.readFile(self.gameFile)
+        else:
+            self.gameJSON = {"games":[]}
+        for x in self.gameJSON["games"]:
+             self.gameList.append(x["title"])
+
+    def readFile(self, path):
+        try:
+            with open(path) as json_file:
+                myjson = json.load(json_file) # load json file if present
+            return myjson
+        except Exception:
+            return False
+    
+    def writeObjToFile(self, path, jsonObj):
+        try:
+            with open(path, "w") as f:
+                json.dump(jsonObj, f, indent=4) #write people list
+        except Exception:
+            return False
+    
+    def getUserList(self):
+        return self.userList
+    
+    def getGameList(self):
+        return self.gameList
+
+    def refreshUserList(self):
+        self.userList = []
+        for x in self.userJSON["profiles"]:
+            self.userList.append(x["name"])
+        return self.userList
+
+    def refreshGameList(self):
+        self.gameList = []
+        for x in self.gameJSON["games"]:
+            self.gameList.append(x["title"])
+        print("new list = {}".format(self.gameList))
+        return self.gameList
+
+    def hasUser(self, user):
+        return {'name': user} in self.userJSON["profiles"]
+
+    def hasGame(self, game):
+        for x in self.gameJSON["games"]:
+            if x['title'] == game:
+                return True
+        return False
+        #return {'title': game} in self.gameJSON["games"]
+
+    def addUser(self, user):
+        self.userJSON["profiles"].append({'name': user})
+        print("user " + user + " added to the file")
+        self.writeObjToFile(self.userFile, self.userJSON)
+        return self.refreshUserList()
+    
+    def deleteUser(self, user):
+        self.userJSON["profiles"].remove({'name': user})
+        print("user " + user + " removed from file")
+        self.writeObjToFile(self.userFile, self.userJSON)
+        return self.refreshUserList()
+    
+    def addGame(self, gameTitle, gamePath, savePath):
+        self.gameJSON["games"].append({"title": gameTitle, "executable": gamePath, "saveLocation": savePath, "lastPlayer": ""})
+        print("game " + gameTitle + " added to the file")
+        self.writeObjToFile(self.gameFile, self.gameJSON)
+        return self.refreshGameList()
+
+    def deleteGame(self, gameTitle):
+        for x in self.gameJSON["games"]:
+            print("x is {} ".format(x))
+            if x["title"] == gameTitle:
+                print("game found, delete")
+                self.gameJSON["games"].remove(x)
+                self.writeObjToFile(self.gameFile, self.gameJSON)
+        return self.refreshGameList()
+
     # def getDir(self):
     #     self.path = filedialog.askdirectory(initialdir = "/",title = "Select directory",mustexist=True)
     #     #print(self.path)
@@ -99,23 +139,11 @@ class HomePage:
         self.root = root
         self.controller = controller
         self.data = data
-        #self.userFile = 'resources/profiles.json'
-        #self.gameList = ["game 1", "game 2"]
         self.myFrame = Frame(self.root)
         self.lblHomeTitle = Label(self.myFrame, text="WELCOME TO THE HOME PAGE")
         self.lblHomeTitle.pack()
         self.lblSelectUser = Label(self.myFrame, text="select user")
         self.lblSelectUser.pack()
-        #self.userList = []
-        # if self.data.readFile(self.userFile):
-        #     #self.userJSON = self.readFile(self.userFile)
-        #     self.userJSON = self.data.readFile(self.userFile)
-        # else:
-        #     self.userJSON = {"profiles":[]}
-        # print(self.userJSON)
-        # for x in self.userJSON["profiles"]:
-        #     self.userList.append(x["name"])
-        #self.cmbUser = ttk.Combobox(self.myFrame, values=self.userList)
         self.cmbUser = ttk.Combobox(self.myFrame, values=self.data.getUserList())
         self.cmbUser.pack()
         self.lblSelectGame = Label(self.myFrame, text="select game")
@@ -150,6 +178,9 @@ class HomePage:
 
     def updateUserList(self, userList):
         self.cmbUser['values'] = userList
+    
+    def updateGameList(self, gameList):
+        self.cmbGame['values'] = gameList
 
 class UserPage:
     def __init__(self, root, controller, data):
@@ -166,15 +197,6 @@ class UserPage:
         self.entUsername.pack()
         self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
-        # self.userList = []
-        # if self.data.readFile(self.userFile):
-        #     #self.userJSON = self.readFile(self.userFile)
-        #     self.userJSON = self.data.readFile(self.userFile)
-        # else:
-        #     self.userJSON = {"profiles":[]}
-        # print(self.userJSON)
-        # for x in self.userJSON["profiles"]:
-        #     self.userList.append(x["name"])
         self.cmbUserList = ttk.Combobox(self.myFrame, values=self.data.getUserList())
         self.cmbUserList.pack()
         self.btnDeleteUser = ttk.Button(self.myFrame, text="DELETE USER", command=lambda:self.deleteUser(self.cmbUserList))
@@ -182,48 +204,30 @@ class UserPage:
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
 
-    # def readFile(self, path):
-    #     try:
-    #         with open(path) as json_file:
-    #             myjson = json.load(json_file) # load json file if present
-    #         return myjson
-    #     except Exception:
-    #         return False
-    
-    # def writeObjToFile(self, path, jsonObj):
-    #     try:
-    #         with open(path, "w") as f:
-    #             json.dump(jsonObj, f, indent=4) #write people list
-    #     except Exception:
-    #         return False
-
-    def addUser(self, entBox):
-        trimmed = entBox.get().strip()
+    def addUser(self, user):
+        trimmed = user.get().strip()
         if trimmed:
-            if {'name': trimmed} not in self.data.userJSON["profiles"]:
-                self.data.userJSON["profiles"].append({'name': trimmed})
-                print("user " + trimmed + " added to the file")
-                self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
-                updatedUserList = self.data.getUserList()
-                self.cmbUserList['values'] = updatedUserList
-                self.controller.pages[HomePage].updateUserList(updatedUserList)
-                entBox.delete(0,END)
+            if not self.data.hasUser(trimmed):
+                updatedList = self.data.addUser(trimmed)
+                print("updated list is {}".format(updatedList))
+                self.cmbUserList['values'] = updatedList #updatedUserList#update list from addUser return
+                #self.controller.pages[HomePage].updateUserList(updatedUserList)
+                self.controller.updateHomePageUserList(updatedList)
+                user.delete(0,END)
             else:
                 print("User already exists")
         else:
             print("Please provide a username to add. The Entry box should be cleared")
-            entBox.delete(0,END)
+            user.delete(0,END)
 
     def deleteUser(self, user):
         if user.get():
             print("user provided")
-            if {'name': user.get()} in self.data.userJSON["profiles"]:
-                self.data.userJSON["profiles"].remove({'name': user.get()})
-                print("user " + user.get() + " removed from file")
-                self.data.writeObjToFile(self.data.userFile, self.data.userJSON)
-                updatedUserList = self.data.getUserList()
-                self.cmbUserList['values'] = updatedUserList
-                self.controller.pages[HomePage].updateUserList(updatedUserList)
+            if self.data.hasUser(user.get()):
+                updatedList = self.data.deleteUser(user.get())
+                self.cmbUserList['values'] = updatedList
+                #self.controller.pages[HomePage].updateUserList(updatedUserList)
+                self.controller.updateHomePageUserList(updatedList)
                 self.cmbUserList.set('')
             else:
                 print("User does not exist")
@@ -247,28 +251,84 @@ class GamePage:
         self.lblGamePath.pack()
         self.entGamePath = Entry(self.myFrame)
         self.entGamePath.pack()
-        self.btnGameBrowse = ttk.Button(self.myFrame, text="Browse ...")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnGameBrowse = ttk.Button(self.myFrame, text="Browse ...", command=self.getFile)
         self.btnGameBrowse.pack()
         self.lblGameSave = Label(self.myFrame, text="game save location")
         self.lblGameSave.pack()
         self.entGameSave = Entry(self.myFrame)
         self.entGameSave.pack()
-        self.btnGameSaveBrowse = ttk.Button(self.myFrame, text="Browse ...")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnGameSaveBrowse = ttk.Button(self.myFrame, text="Browse ...", command=self.getDir)
         self.btnGameSaveBrowse.pack()
-        #self.gameList = []
-        #self.gameList = ["game1","game2"]
-        self.btnAddGame = ttk.Button(self.myFrame, text="Add game")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnAddGame = ttk.Button(self.myFrame, text="Add game", command=lambda:self.addGame(self.entGamename, self.entGamePath, self.entGameSave))
         self.btnAddGame.pack()
         self.lblDeleteGame = Label(self.myFrame, text="delete game")
         self.lblDeleteGame.pack()
         self.cmbGameList = ttk.Combobox(self.myFrame, values=self.data.getGameList())
         self.cmbGameList.pack()
-        self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game")#, command=lambda:self.deleteUser(self.cmbUserList))
+        self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game", command=lambda:self.deleteGame(self.cmbGameList))
         self.btnDeleteGame.pack()
 
 
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame(HomePage))
         self.btnHomePage.pack()
+
+    def getFile(self):
+        finalPath = ''
+        filepath = filedialog.askopenfilename(parent=self.root, initialdir="/", filetypes=(("shortcuts", ".lnk .url"), ("all files", "*.*")))
+        if filepath.lower().endswith(('.url')):
+            #FIND THE TARGET OF THE LNK OR URL
+            url = ''
+            with open(filepath, "r") as infile:
+                for line in infile:
+                    if (line.startswith('URL')):
+                        url = line[4:]
+                        break
+            print("THIS IS A URL LINK " + url)
+            finalPath = url
+        elif filepath.lower().endswith(('.lnk')):
+            target = pylnk3.parse(filepath).path.replace('\\','/')
+            finalPath = target
+            print("THIS IS AN LNK " + target)
+        elif len(filepath) > 0:
+            finalPath = filepath
+            print("THIS IS THE SELECTED PATH " + finalPath)
+            #lblFile.config(text=filepath)
+        if len(finalPath) > 0:
+            self.entGamePath.delete(0,END)
+            self.entGamePath.insert(0,finalPath.strip())
+
+    def getDir(self):
+        path = filedialog.askdirectory(initialdir = "/", title = "Select directory", mustexist=True)
+        #print(path)
+        if len(path) > 0:
+            #lblDir.config(text=path)
+            self.entGameSave.delete(0,END)
+            self.entGameSave.insert(0,path.strip())
+    
+    def addGame(self, title, path, savePath):
+        if not self.data.hasGame(title):
+            trimTitle = title.get().strip()
+            trimPath = path.get().strip()
+            trimSavePath = savePath.get().strip()
+            updatedList = self.data.addGame(trimTitle, trimPath, trimSavePath)
+            self.cmbGameList['values'] = updatedList
+            self.controller.updateHomePageGameList(updatedList)
+            print("game added")
+            title.delete(0,END)
+            path.delete(0,END)
+            savePath.delete(0,END)
+
+    def deleteGame(self, title):
+        if title.get():
+            print("game provided")
+            if self.data.hasGame(title.get()):
+                updatedList = self.data.deleteGame(title.get())
+                self.cmbGameList['values'] = updatedList
+                self.controller.updateHomePageGameList(updatedList)
+                self.cmbGameList.set('')
+                print("game deleted")
+
+
 
 main()
 

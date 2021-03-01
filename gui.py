@@ -1,7 +1,6 @@
 import os
 from tkinter import *
 from tkinter import filedialog
-from Person import Person
 import pylnk3
 import subprocess
 import webbrowser
@@ -12,7 +11,6 @@ root = Tk()
 root.title("Open file app")
 root.minsize(300,200)
 
-p1 = Person("Naz",35)
 
 lblDir = Label(root, text="select a directory and this text will update")
 lblFile = Label(root, text="select a file and this text will update")

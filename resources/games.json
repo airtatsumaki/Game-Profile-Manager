@@ -5,6 +5,12 @@
             "executable": "steam://rungameid/861650",
             "saveLocation": "C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames",
             "lastPlayer": ""
+        },
+        {
+            "title": "tester",
+            "executable": "tester.exe",
+            "saveLocation": "c:/tester",
+            "lastPlayer": ""
         }
     ]
 }
