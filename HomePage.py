@@ -26,19 +26,6 @@ class HomePage:
         self.btnGamePage.pack()
         #self.btnAddGame = ttk.Button(self.myFrame, text="Add game 3 to this list", command=self.addGame)
         #self.btnAddGame.pack()
-    
-    # def addGame(self):
-    #     self.data.gameList.append("game 3")
-    #     self.cmbGame['values'] = self.gameList
-    #     print(self.gameList)
-    
-    # def readFile(self, path):
-    #     try:
-    #         with open(path) as json_file:
-    #             myjson = json.load(json_file) # load json file if present
-    #         return myjson
-    #     except Exception:
-    #         return False
 
     def runGame(self, currentUser, currentGame):
         #self.currentGame = currentGame
