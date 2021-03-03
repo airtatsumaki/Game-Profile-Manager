@@ -46,3 +46,6 @@ class HomePage:
 
     def updateUserList(self, userList):
         self.cmbUser['values'] = userList
+    
+    def updateGameList(self, gameList):
+        self.cmbGame['values'] = gameList
