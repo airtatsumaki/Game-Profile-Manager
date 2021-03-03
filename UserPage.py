@@ -1,6 +1,6 @@
-# from tkinter import *
-# from tkinter import filedialog
-# from tkinter import ttk
+from tkinter import *
+from tkinter import filedialog
+from tkinter import ttk
 
 class UserPage:
     def __init__(self, root, controller, data):
