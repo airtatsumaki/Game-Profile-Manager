@@ -11,6 +11,12 @@
             "executable": "tester.exe",
             "saveLocation": "c:/tester",
             "lastPlayer": ""
+        },
+        {
+            "title": "tester",
+            "executable": "C:/Program Files (x86)/Battle.net/Battle.net Launcher.exe",
+            "saveLocation": "D:/Games",
+            "lastPlayer": ""
         }
     ]
 }
