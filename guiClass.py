@@ -24,15 +24,15 @@ class MyApp:
         print("user list is: {}".format(dataObj.userList))
         print("game list is: {}".format(dataObj.gameList))
 
-        for x in ([HomePage, 'HomePage'], [UserPage, 'UserPage'], [GamePage, 'GamePage']):
-            page = x[0](self.root, self, dataObj)
-            self.pages[x[1]] = page
+        for x in (HomePage, UserPage, GamePage):
+            page = x(self.root, self, dataObj)
+            self.pages[type(page).__name__] = page
             page.myFrame.place(x=0, y=0, width=300, height=400)
 
         self.raise_frame('HomePage')
 
     def raise_frame(self, cont):
-        page = self.pages[cont].myFrame.tkraise()\
+        page = self.pages[cont].myFrame.tkraise()
 
     def updateHomePageUserList(self, userList):
         self.pages['HomePage'].updateUserList(userList)
@@ -98,11 +98,12 @@ class Data:
         return {'name': user} in self.userJSON["profiles"]
 
     def hasGame(self, game):
+        result = False
         for x in self.gameJSON["games"]:
             if x['title'] == game:
-                return True
-        return False
-        #return {'title': game} in self.gameJSON["games"]
+                result = True
+                break
+        return result
 
     def addUser(self, user):
         self.userJSON["profiles"].append({'name': user})

@@ -37,7 +37,6 @@ class GamePage:
         self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game", command=lambda:self.deleteGame(self.cmbGameList))
         self.btnDeleteGame.pack()
 
-
         self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame('HomePage'))
         self.btnHomePage.pack()
 
@@ -75,7 +74,7 @@ class GamePage:
             self.entGameSave.insert(0,path.strip())
     
     def addGame(self, title, path, savePath):
-        if not self.data.hasGame(title):
+        if not self.data.hasGame(title.get().strip()):
             trimTitle = title.get().strip()
             trimPath = path.get().strip()
             trimSavePath = savePath.get().strip()
@@ -86,6 +85,8 @@ class GamePage:
             title.delete(0,END)
             path.delete(0,END)
             savePath.delete(0,END)
+        else:
+            print("game already exists")
 
     def deleteGame(self, title):
         if title.get():
