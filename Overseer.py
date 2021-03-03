@@ -1,0 +1,1 @@
+#this class will do the dir management for moving save files before games are run.
