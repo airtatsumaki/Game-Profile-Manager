@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
-#import pylnk3
+import pylnk3
 
 class GamePage:
     def __init__(self, root, controller, data):
