@@ -10,13 +10,6 @@ from HomePage import HomePage
 from UserPage import UserPage
 from GamePage import GamePage
 
-def main():
-    root = Tk()
-    root.title("Game Profile Manager")
-    root.minsize(300,400)
-    runapp = MyApp(root)
-    root.mainloop()
-
 class MyApp:
     def __init__(self, root):
         self.root = root
@@ -40,6 +33,15 @@ class MyApp:
     
     def updateHomePageGameList(self, gameList):
         self.pages['HomePage'].updateGameList(gameList)
+
+def main():
+    root = Tk()
+    root.title("Game Profile Manager")
+    root.minsize(300,400)
+    runapp = MyApp(root)
+    root.mainloop()
+
+main()
 
 # class Data:
 #     def __init__(self):
@@ -335,7 +337,7 @@ class MyApp:
 
 
 
-main()
+
 
 # p1 = Person("Naz",35)
 
