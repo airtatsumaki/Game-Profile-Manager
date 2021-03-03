@@ -1,6 +1,6 @@
-from tkinter import *
-from tkinter import filedialog
-from tkinter import ttk
+# from tkinter import *
+# from tkinter import filedialog
+# from tkinter import ttk
 #import pylnk3
 
 class GamePage:
