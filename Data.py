@@ -1,4 +1,5 @@
 import json
+
 class Data:
     def __init__(self):
         self.userList = []
