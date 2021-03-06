@@ -83,6 +83,22 @@ class Data:
         self.writeObjToFile(self.gameFile, self.gameJSON)
         return self.refreshGameList()
 
+    def getGameObj(self, gameTitle):
+        for x in self.gameJSON["games"]:
+            print("x is {} ".format(x))
+            if x["title"] == gameTitle:
+                print("x is {} ".format(x))
+                return x
+
+    def setLastPlayer(self, gameTitle, user):
+        for x in self.gameJSON["games"]:
+            print("x is {} ".format(x))
+            if x["title"] == gameTitle:
+                print("x is {} ".format(x))
+                x["lastPlayer"] = user
+                self.writeObjToFile(self.gameFile, self.gameJSON)
+        return self.refreshGameList()
+
     def deleteGame(self, gameTitle):
         for x in self.gameJSON["games"]:
             print("x is {} ".format(x))
@@ -91,3 +107,11 @@ class Data:
                 self.gameJSON["games"].remove(x)
                 self.writeObjToFile(self.gameFile, self.gameJSON)
         return self.refreshGameList()
+
+# dataObj = Data()
+# game = dataObj.getGameObj("Session.")
+# print(game)
+# print(game["saveLocation"])
+# dataObj.setLastPlayer("Session.","nazim")
+# game2 = dataObj.getGameObj("Session.")
+# print(game2)
