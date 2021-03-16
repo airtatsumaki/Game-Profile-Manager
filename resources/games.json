@@ -5,12 +5,6 @@
             "executable": "steam://rungameid/861650",
             "saveLocation": "C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames",
             "lastPlayer": ""
-        },
-        {
-            "title": "test",
-            "executable": "x",
-            "saveLocation": "y",
-            "lastPlayer": ""
         }
     ]
 }
