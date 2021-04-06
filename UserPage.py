@@ -17,7 +17,7 @@ class UserPage:
         self.entUsername.pack()
         self.btnAddUser = ttk.Button(self.myFrame, text="ADD USER", command=lambda:self.addUser(self.entUsername))
         self.btnAddUser.pack()
-        self.cmbUserList = ttk.Combobox(self.myFrame, values=self.data.getUserList())
+        self.cmbUserList = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getUserList())
         self.cmbUserList.pack()
         self.btnDeleteUser = ttk.Button(self.myFrame, text="DELETE USER", command=lambda:self.deleteUser(self.cmbUserList))
         self.btnDeleteUser.pack()

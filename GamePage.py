@@ -33,7 +33,7 @@ class GamePage:
         self.btnAddGame.pack()
         self.lblDeleteGame = Label(self.myFrame, text="delete game")
         self.lblDeleteGame.pack()
-        self.cmbGameList = ttk.Combobox(self.myFrame, values=self.data.getGameList())
+        self.cmbGameList = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getGameList())
         self.cmbGameList.pack()
         self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game", command=lambda:self.deleteGame(self.cmbGameList))
         self.btnDeleteGame.pack()

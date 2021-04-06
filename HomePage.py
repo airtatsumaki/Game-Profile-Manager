@@ -61,7 +61,7 @@ class HomePage:
             if gameObj["executable"].lower().endswith('.exe'):
                 os.startfile(gameObj["executable"])
             elif gameObj["executable"].lower().startswith('steam'):
-                webbrowser.open('steam://rungameid/861650')
+                webbrowser.open(gameObj["executable"])
         else:
             print("Select a valid game and user from the list")
 
