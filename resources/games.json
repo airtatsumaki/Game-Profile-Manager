@@ -4,7 +4,13 @@
             "title": "Session.",
             "executable": "steam://rungameid/861650",
             "saveLocation": "C:/Users/user/AppData/Local/SessionGame/Saved/SaveGames",
-            "lastPlayer": ""
+            "lastPlayer": "nazim"
+        },
+        {
+            "title": "tester",
+            "executable": "D:/Work/backups/Apps/Game Profile Manager/Game Profile Manager.exe",
+            "saveLocation": "C:/Users/user/Application Data/Desktop/saveGame",
+            "lastPlayer": "hamza"
         }
     ]
 }

@@ -1,6 +1,11 @@
+import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+from distutils.dir_util import copy_tree
+from distutils.dir_util import remove_tree
+import webbrowser
+
 
 class HomePage:
     def __init__(self, root, controller, data):
@@ -12,11 +17,11 @@ class HomePage:
         self.lblHomeTitle.pack()
         self.lblSelectUser = Label(self.myFrame, text="select user")
         self.lblSelectUser.pack()
-        self.cmbUser = ttk.Combobox(self.myFrame, values=self.data.getUserList())
+        self.cmbUser = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getUserList())
         self.cmbUser.pack()
         self.lblSelectGame = Label(self.myFrame, text="select game")
         self.lblSelectGame.pack()
-        self.cmbGame = ttk.Combobox(self.myFrame, values=self.data.getGameList())
+        self.cmbGame = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getGameList())
         self.cmbGame.pack()
         self.btnRunGame = ttk.Button(self.myFrame, text="Run the game", command=lambda:self.runGame(self.cmbUser,self.cmbGame))
         self.btnRunGame.pack()
@@ -28,8 +33,38 @@ class HomePage:
         #self.btnAddGame.pack()
 
     def runGame(self, currentUser, currentGame):
-        #self.currentGame = currentGame
-        print(currentUser.get() + " ran the game : " + currentGame.get())
+        gameTitle = currentGame.get()
+        userName = currentUser.get()
+        if gameTitle != "" and userName != "":
+            gameObj = self.data.getGameObj(gameTitle)
+            print(userName + " ran the game : " + gameObj["title"])
+            #if the player does NOT have a save folder, create one for this game and profile
+            if not os.path.exists("resources/games/" + gameObj["title"] + "/" + userName):
+                os.makedirs("resources/games/" + gameObj["title"] + "/" + userName)
+            #"\resources\Games\" + gameName + "\" + profile
+
+            #if last player is blank, make current player the last player
+            if gameObj["lastPlayer"] == "":
+                print("First time being played. leave files in place. Set as new player")
+                self.data.setLastPlayer(gameObj["title"], userName)
+            elif gameObj["lastPlayer"] != userName:
+                print("Another player was the lastPlayer. Backup their files first")
+                #copy from game save folder to lastPlayer folder
+                copy_tree(gameObj["saveLocation"], "resources/games/" + gameObj["title"] + "/" + gameObj["lastPlayer"])
+                #clear save game folder
+                remove_tree(gameObj["saveLocation"])
+                #copy from currentPlayer to save folder
+                copy_tree("resources/games/" + gameObj["title"] + "/" + userName, gameObj["saveLocation"])
+                self.data.setLastPlayer(gameObj["title"], userName)
+            
+            #run the game
+            if gameObj["executable"].lower().endswith('.exe'):
+                os.startfile(gameObj["executable"])
+            elif gameObj["executable"].lower().startswith('steam'):
+                webbrowser.open('steam://rungameid/861650')
+        else:
+            print("Select a valid game and user from the list")
+
 
     def updateUserList(self, userList):
         self.cmbUser['values'] = userList
