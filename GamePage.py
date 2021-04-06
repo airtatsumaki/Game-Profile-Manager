@@ -76,13 +76,19 @@ class GamePage:
     
     def addGame(self, title, path, savePath):
         if not self.data.hasGame(title.get().strip()):
-            #need to check if the game exe/steam url etc AND game save location are valid before proceeding.
             trimTitle = title.get().strip()
-            trimPath = path.get().strip()
+            trimGamePath = path.get().strip()
             trimSavePath = savePath.get().strip()
             if os.path.exists(trimSavePath):
                 print("valid save game path")
-            updatedList = self.data.addGame(trimTitle, trimPath, trimSavePath)
+            else:
+                print("error")
+            #do i need to check if the game exe/steam url etc are valid before proceeding?
+            # if os.path.exists(trimGamePath):
+            #     print("valid game path")
+            # else:
+            #     print("error")
+            updatedList = self.data.addGame(trimTitle, trimGamePath, trimSavePath)
             self.cmbGameList['values'] = updatedList
             self.controller.updateHomePageGameList(updatedList)
             print("game added")
