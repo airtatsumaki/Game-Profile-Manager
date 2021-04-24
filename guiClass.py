@@ -1,3 +1,6 @@
+#create .exe file with...
+#pyinstaller --noconsole guiClass.py
+
 import os
 import json
 import pylnk3
