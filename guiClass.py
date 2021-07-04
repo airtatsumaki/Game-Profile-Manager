@@ -40,7 +40,8 @@ class MyApp:
 def main():
     root = Tk()
     root.title("Game Profile Manager")
-    root.minsize(300,400)
+    #root.minsize(300,400)
+    root.geometry('{}x{}'.format(300, 400))
     runapp = MyApp(root)
     root.mainloop()
 

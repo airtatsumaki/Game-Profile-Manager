@@ -9,9 +9,9 @@ class UserPage:
         self.data = data
         self.userFile = self.data.userFile
         self.myFrame = Frame(self.root)
-        self.lblUserTitle = Label(self.myFrame, text="THIS IS THE USER PAGE")
+        self.lblUserTitle = ttk.Label(self.myFrame, text="THIS IS THE USER PAGE")
         self.lblUserTitle.pack()
-        self.lblAddUser = Label(self.myFrame, text="SPECIFY A USERNAME TO ADD")
+        self.lblAddUser = ttk.Label(self.myFrame, text="SPECIFY A USERNAME TO ADD")
         self.lblAddUser.pack()
         self.entUsername = Entry(self.myFrame)
         self.entUsername.pack()
