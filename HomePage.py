@@ -16,6 +16,7 @@ class HomePage:
         #self.myFrame.grid_columnconfigure(0, minsize=30)#empty left column?
         self.lblHomeTitle = ttk.Label(self.myFrame, text="Game Profile Manager")
         self.lblHomeTitle.pack()
+        #hi there
         #self.lblHomeTitle.grid(row=1, column=2, pady=10, columnspan=2)
         self.lblSelectGame = ttk.Label(self.myFrame, text="select game")
         self.lblSelectGame.place(x=20, y=20)
