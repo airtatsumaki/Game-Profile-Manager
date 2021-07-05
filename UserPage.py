@@ -53,3 +53,7 @@ class UserPage:
                 print("User does not exist")
         else:
             print("No user provided")
+    
+    def clearForm(self):
+        self.entUsername.delete(0,END)
+        self.cmbUserList.set('')

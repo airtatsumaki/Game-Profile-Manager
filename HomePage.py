@@ -78,3 +78,7 @@ class HomePage:
     
     def updateGameList(self, gameList):
         self.cmbGame['values'] = gameList
+    
+    def clearForm(self):
+        self.cmbUser.set('')
+        self.cmbGame.set('')

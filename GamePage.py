@@ -107,3 +107,9 @@ class GamePage:
                 self.controller.updateHomePageGameList(updatedList)
                 self.cmbGameList.set('')
                 print("game deleted")
+
+    def clearForm(self):
+        self.cmbGameList.set('')
+        self.entGamename.delete(0,END)
+        self.entGamePath.delete(0,END)
+        self.entGameSave.delete(0,END)

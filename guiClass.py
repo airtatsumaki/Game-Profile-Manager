@@ -29,6 +29,7 @@ class MyApp:
         self.raise_frame('HomePage')
 
     def raise_frame(self, cont):
+        self.pages[cont].clearForm()
         page = self.pages[cont].myFrame.tkraise()
 
     def updateHomePageUserList(self, userList):
