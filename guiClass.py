@@ -24,7 +24,7 @@ class MyApp:
         for x in (HomePage, UserPage, GamePage):
             page = x(self.root, self, dataObj)
             self.pages[type(page).__name__] = page
-            page.myFrame.place(x=0, y=0, width=300, height=400)
+            page.myFrame.place(x=0, y=0, width=616, height=381)
 
         self.raise_frame('HomePage')
 
@@ -41,7 +41,7 @@ def main():
     root = Tk()
     root.title("Game Profile Manager")
     #root.minsize(300,400)
-    root.geometry('{}x{}'.format(300, 400))
+    root.geometry('{}x{}'.format(616, 381))
     runapp = MyApp(root)
     root.mainloop()
 
