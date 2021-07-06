@@ -11,10 +11,16 @@ class GamePage:
         self.data = data
         self.gameFile = self.data.gameFile
         self.myFrame = Frame(self.root)
-        self.lblGameTitle = ttk.Label(self.myFrame, text="WELCOME TO THE GAME PAGE")
-        self.lblGameTitle.pack()
-        self.lblGameName = ttk.Label(self.myFrame, text="enter game name")
-        self.lblGameName.pack()
+        self.lblGameTitle = ttk.Label(self.myFrame, text="Game Management", font=("Helvetica", 28))
+        self.lblGameTitle.place(x=143, y=20)
+        self.gamePageStyles = ttk.Style()
+        self.gamePageStyles.configure('addGamelf.TLabelframe.Label', font=('Helvetica', 10))
+        #self.addGameFrame = ttk.LabelFrame(self.myFrame, text='Add game', style='addGamelf.TLabelframe')
+        #self.addGameFrame.place(x=20, y=100, width=290)
+        self.lblAddGame = ttk.Label(self.myFrame, text="Add game", font=('Helvetica', 10))
+        self.lblAddGame.place(x=20, y=100)
+        self.lblGameName = ttk.Label(self.myFrame, text="Game name", font=('Helvetica', 10))
+        self.lblGameName.place(x=20, y=120)
         self.entGamename = Entry(self.myFrame)
         self.entGamename.pack()
         self.lblGamePath = ttk.Label(self.myFrame, text="game path '.exe' or 'steam://rungameid/XXXXXX'")
@@ -38,8 +44,8 @@ class GamePage:
         self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game", command=lambda:self.deleteGame(self.cmbGameList))
         self.btnDeleteGame.pack()
 
-        self.btnHomePage = ttk.Button(self.myFrame, text="Go back to home page", command=lambda:self.controller.raise_frame('HomePage'))
-        self.btnHomePage.pack()
+        self.btnHomePage = ttk.Button(self.myFrame, text="Home", command=lambda:self.controller.raise_frame('HomePage'))
+        self.btnHomePage.place(x=0, y=0)
 
     def getFile(self):
         finalPath = ''
