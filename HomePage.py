@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+from tkinter import messagebox
 from distutils.dir_util import copy_tree
 from distutils.dir_util import remove_tree
 import webbrowser
@@ -70,6 +71,7 @@ class HomePage:
             elif gameObj["executable"].lower().startswith('steam'):
                 webbrowser.open(gameObj["executable"])
         else:
+            messagebox.showerror("Error","Please select a valid game and profile.")
             print("Select a valid game and user from the list")
 
 

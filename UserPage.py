@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+from tkinter import messagebox
+
 
 class UserPage:
     def __init__(self, root, controller, data):
@@ -37,24 +39,31 @@ class UserPage:
                 #self.controller.pages[HomePage].updateUserList(updatedUserList)
                 self.controller.updateHomePageUserList(updatedList)
                 user.delete(0,END)
+                messagebox.showinfo("Profile added","Profile: '" + trimmed + "' has been added successfully.")
             else:
+                messagebox.showwarning("Profile not added","Profile: '" + trimmed + "' already exists. \nPlease choose another profile name.")
                 print("User already exists")
         else:
+            messagebox.showwarning("Profile error","Please enter a profile name.")
             print("Please provide a username to add. The Entry box should be cleared")
             user.delete(0,END)
 
     def deleteUser(self, user):
         if user.get():
             print("user provided")
+            userToDelete = user.get()
             if self.data.hasUser(user.get()):
                 updatedList = self.data.deleteUser(user.get())
                 self.cmbUserList['values'] = updatedList
                 #self.controller.pages[HomePage].updateUserList(updatedUserList)
                 self.controller.updateHomePageUserList(updatedList)
                 self.cmbUserList.set('')
+                messagebox.showinfo("Profile deleted","Profile: '" + userToDelete + "' has been deleted successfully.")
             else:
+                messagebox.showwarning("Profile not deleted","Profile: '" + userToDelete + "' cannot be deleted as it doesn't exist.")
                 print("User does not exist")
         else:
+            messagebox.showerror("Profile error", "Please select a profile name to delete.")
             print("No user provided")
     
     def clearForm(self):

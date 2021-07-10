@@ -1,4 +1,5 @@
 import json
+from tkinter import messagebox
 
 class Data:
     def __init__(self):
@@ -9,6 +10,7 @@ class Data:
         if self.readFile(self.userFile):
             self.userJSON = self.readFile(self.userFile)
         else:
+            messagebox.showinfo("Profile file missing","It seems you do not have a profile data file. Not to worry, one will be created for you within the app/resources folder when you add a new profile.")
             self.userJSON = {"profiles":[]}
         for x in self.userJSON["profiles"]:
              self.userList.append(x["name"])
@@ -16,6 +18,7 @@ class Data:
         if self.readFile(self.gameFile):
             self.gameJSON = self.readFile(self.gameFile)
         else:
+            messagebox.showinfo("Game file missing","It seems you do not have a game data file. Not to worry, one will be created for you within the app/resources folder when you add a new game.")
             self.gameJSON = {"games":[]}
         for x in self.gameJSON["games"]:
              self.gameList.append(x["title"])
@@ -107,13 +110,3 @@ class Data:
                 x["lastPlayer"] = user
                 self.writeObjToFile(self.gameFile, self.gameJSON)
         return self.refreshGameList()
-
-    
-
-# dataObj = Data()
-# game = dataObj.getGameObj("Session.")
-# print(game)
-# print(game["saveLocation"])
-# dataObj.setLastPlayer("Session.","nazim")
-# game2 = dataObj.getGameObj("Session.")
-# print(game2)

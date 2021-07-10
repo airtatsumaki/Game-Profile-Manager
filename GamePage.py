@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
+from tkinter import messagebox
 import pylnk3
 
 class GamePage:
@@ -39,7 +40,7 @@ class GamePage:
         self.btnAddGame = ttk.Button(self.myFrame, text="Add game", style="browse.TButton", command=lambda:self.addGame(self.entGamename, self.entGamePath, self.entGameSave))
         self.btnAddGame.place(x=52, y=275)
 
-        self.lblDeleteGame = ttk.Label(self.myFrame, text="delete game", font="Helvetica 10 underline")
+        self.lblDeleteGame = ttk.Label(self.myFrame, text="delete game", font="Helvetica 10")
         self.lblDeleteGame.place(x=395, y=100)
         self.cmbGameList = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getGameList(), width=16, font=("Helvetica", 12))
         self.cmbGameList.place(x=392, y=120)
@@ -96,14 +97,19 @@ class GamePage:
             #     print("valid game path")
             # else:
             #     print("error")
-            updatedList = self.data.addGame(trimTitle, trimGamePath, trimSavePath)
-            self.cmbGameList['values'] = updatedList
-            self.controller.updateHomePageGameList(updatedList)
-            print("game added")
-            title.delete(0,END)
-            path.delete(0,END)
-            savePath.delete(0,END)
+            if not(trimTitle or trimGamePath or trimSavePath):
+                print("no game/ path/ save provided")
+            else:
+                updatedList = self.data.addGame(trimTitle, trimGamePath, trimSavePath)
+                self.cmbGameList['values'] = updatedList
+                self.controller.updateHomePageGameList(updatedList)
+                print("game added")
+                title.delete(0,END)
+                path.delete(0,END)
+                savePath.delete(0,END)
+                messagebox.showinfo("Game added","Game '" + trimTitle + "' has been added successfully.")
         else:
+            messagebox.showwarning("Game not added","Game: '" + title.get().strip() + "' already exists. \nPlease choose another game name.")
             print("game already exists")
 
     def deleteGame(self, title):
@@ -114,6 +120,7 @@ class GamePage:
                 self.cmbGameList['values'] = updatedList
                 self.controller.updateHomePageGameList(updatedList)
                 self.cmbGameList.set('')
+                messagebox.showinfo("Game deleted","Game: '" + title.get() + "' has been deleted successfully.")
                 print("game deleted")
 
     def clearForm(self):
