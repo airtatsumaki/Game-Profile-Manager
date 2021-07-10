@@ -17,6 +17,8 @@ class MyApp:
     def __init__(self, root):
         self.root = root
         self.pages = {}
+        if not os.path.exists("resources/"):
+            os.makedirs("resources/")
         dataObj = Data()
         print("user list is: {}".format(dataObj.userList))
         print("game list is: {}".format(dataObj.gameList))
