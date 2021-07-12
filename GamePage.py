@@ -47,8 +47,8 @@ class GamePage:
         self.btnDeleteGame = ttk.Button(self.myFrame, text="Delete game", style="browse.TButton", command=lambda:self.deleteGame(self.cmbGameList))
         self.btnDeleteGame.place(x=392, y=165)
 
-        self.btnHomePage = ttk.Button(self.myFrame, text="Home", command=lambda:self.controller.raise_frame('HomePage'))
-        self.btnHomePage.place(x=0, y=0)
+        #self.btnHomePage = ttk.Button(self.myFrame, text="Home", command=lambda:self.controller.raise_frame('HomePage'))
+        #self.btnHomePage.place(x=0, y=0)
 
     def getFile(self):
         finalPath = ''

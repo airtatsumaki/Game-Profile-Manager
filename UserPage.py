@@ -3,7 +3,6 @@ from tkinter import filedialog
 from tkinter import ttk
 from tkinter import messagebox
 
-
 class UserPage:
     def __init__(self, root, controller, data):
         self.root = root
@@ -26,8 +25,8 @@ class UserPage:
         self.cmbUserList.place(x=332, y=137)
         self.btnDeleteUser = ttk.Button(self.myFrame, text="Delete profile", command=lambda:self.deleteUser(self.cmbUserList))
         self.btnDeleteUser.place(x=332, y=177)
-        self.btnHomePage = ttk.Button(self.myFrame, text="Home", command=lambda:self.controller.raise_frame('HomePage'))
-        self.btnHomePage.place(x=0, y=0)
+        #self.btnHomePage = ttk.Button(self.myFrame, text="Home", command=lambda:self.controller.raise_frame('HomePage'))
+        #self.btnHomePage.place(x=0, y=0)
 
     def addUser(self, user):
         trimmed = user.get().strip()

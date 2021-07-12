@@ -12,6 +12,7 @@ from Data import Data
 from HomePage import HomePage
 from UserPage import UserPage
 from GamePage import GamePage
+from AboutPage import AboutPage
 
 class MyApp:
     def __init__(self, root):
@@ -23,7 +24,7 @@ class MyApp:
         print("user list is: {}".format(dataObj.userList))
         print("game list is: {}".format(dataObj.gameList))
 
-        for x in (HomePage, UserPage, GamePage):
+        for x in (HomePage, UserPage, GamePage, AboutPage):
             page = x(self.root, self, dataObj)
             self.pages[type(page).__name__] = page
             page.myFrame.place(x=0, y=0, width=616, height=381)
