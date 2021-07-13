@@ -34,18 +34,9 @@ class HomePage:
         self.lblSelectUser.place(x=228, y=150)
         self.cmbUser = ttk.Combobox(self.myFrame, state="readonly", values=self.data.getUserList(), width=16, font=("Helvetica", 12))
         self.cmbUser.place(x=225, y=170)
-        #self.homePageStyles.configure('mgm.TButton', font=('Helvetica', 10))
-        #self.btnGamePage = ttk.Button(self.myFrame, text="Game management", style="mgm.TButton", command=lambda:self.controller.raise_frame('GamePage'))
-        #self.btnGamePage.place(x=345, y=90, width=140, height=45)
-        #self.btnUserPage = ttk.Button(self.myFrame, text="Profile management", style="mgm.TButton", command=lambda:self.controller.raise_frame('UserPage'))
-        #self.btnUserPage.place(x=345, y=150, width=140, height=45)
         self.homePageStyles.configure('runGame.TButton', font=("Helvetica", 14))
         self.btnRunGame = ttk.Button(self.myFrame, text="Play game", style="runGame.TButton", command=lambda:self.runGame(self.cmbUser,self.cmbGame))
         self.btnRunGame.place(x=239, y=230, width=140, height=45)
-        #Hyperlink
-        #self.hyperlink = ttk.Label(self.myFrame, text=r"http://www.google.com", cursor="hand2")
-        #self.hyperlink.bind("<Button-1>", self.callback)
-        #self.hyperlink.place(x=0,y=0)
 
     def runGame(self, currentUser, currentGame):
         gameTitle = currentGame.get()

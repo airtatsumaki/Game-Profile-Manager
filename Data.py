@@ -1,5 +1,4 @@
 import json
-from tkinter import messagebox
 
 class Data:
     def __init__(self):
@@ -7,18 +6,20 @@ class Data:
         self.userFile = 'resources/profiles.json'
         self.gameList = []
         self.gameFile = 'resources/games.json'
+        self.profileFlag = 0
+        self.gameFlag = 0
         if self.readFile(self.userFile):
             self.userJSON = self.readFile(self.userFile)
+            self.profileFlag = 1
         else:
-            messagebox.showinfo("Profile file missing","It seems you do not have a profile data file. Not to worry, one will be created for you within the app/resources folder when you add a new profile.")
             self.userJSON = {"profiles":[]}
         for x in self.userJSON["profiles"]:
              self.userList.append(x["name"])
         
         if self.readFile(self.gameFile):
             self.gameJSON = self.readFile(self.gameFile)
+            self.gameFlag = 1
         else:
-            messagebox.showinfo("Game file missing","It seems you do not have a game data file. Not to worry, one will be created for you within the app/resources folder when you add a new game.")
             self.gameJSON = {"games":[]}
         for x in self.gameJSON["games"]:
              self.gameList.append(x["title"])
@@ -34,10 +35,13 @@ class Data:
     def writeObjToFile(self, path, jsonObj):
         try:
             with open(path, "w") as f:
-                json.dump(jsonObj, f, indent=4) #write people list
+                json.dump(jsonObj, f, indent=4) #write file
         except Exception:
             return False
     
+    def sendFlags(self):
+        return {"profileFlag": self.profileFlag, "gameFlag": self.gameFlag}
+
     def getUserList(self):
         return self.userList
     

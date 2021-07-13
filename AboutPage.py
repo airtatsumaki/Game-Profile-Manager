@@ -9,7 +9,7 @@ class AboutPage:
         self.data = data
         self.myFrame = Frame(self.root)
         #Hyperlink
-        self.hyperlink = ttk.Label(self.myFrame, text=r"http://www.google.com", cursor="hand2")
+        self.hyperlink = ttk.Label(self.myFrame, text=r"https://github.com/airtatsumaki/Game-Profile-Manager", cursor="hand2")
         self.hyperlink.bind("<Button-1>", self.callback)
         self.hyperlink.place(x=0,y=0)
     
