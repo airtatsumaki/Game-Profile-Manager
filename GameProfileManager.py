@@ -34,7 +34,7 @@ class MyApp:
 
         #missing files msgbox
         flags = dataObj.sendFlags()
-        print(flags)
+        #print(flags)
         self.msgText = ""
         if flags["profileFlag"] == 0 and flags["gameFlag"] == 0:
             self.msgText += "Profile or Game"
