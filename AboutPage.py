@@ -43,6 +43,11 @@ class AboutPage:
         self.QRImg = ImageTk.PhotoImage(Image.open("img/BTQR_code_small.png"))  
         self.QRCanvas.create_image(0, 0, anchor=NW, image=self.QRImg)
         self.QRCanvas.place(x=396,y=230)
+        self.txtBTAddress = Text(self.myFrame, height=1)
+        self.txtBTAddress.insert(1.0, "1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
+        self.txtBTAddress.configure(bg=self.myFrame.cget('bg'), relief="flat")
+        self.txtBTAddress.configure(state="disabled")
+        self.txtBTAddress.place(x=300,y=330)
         
         
 
