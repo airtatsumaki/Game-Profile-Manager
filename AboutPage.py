@@ -44,10 +44,10 @@ class AboutPage:
         self.QRCanvas.create_image(0, 0, anchor=NW, image=self.QRImg)
         self.QRCanvas.place(x=396,y=230)
         self.lblBTAddress = ttk.Label(self.myFrame, font=("Helvetica", 10), text="1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
-        self.lblBTAddress.place(x=300,y=330)
+        self.lblBTAddress.place(x=307,y=330)
         self.copyIcon = PhotoImage(file = "img/copy_icon.png")
         self.btnCopyIcon = ttk.Button(self.myFrame, text="", image=self.copyIcon, command=lambda:self.copyToClipboard(self.root))
-        self.btnCopyIcon.place(x=270,y=316)
+        self.btnCopyIcon.place(x=277,y=316)
 
         # self.txtBTAddress = Text(self.myFrame, height=1)
         # self.txtBTAddress.insert(1.0, "1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
