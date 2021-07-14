@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from tkinter import *  
+from tkinter import Tk
 from PIL import ImageTk, Image
 import webbrowser
 
@@ -43,17 +43,25 @@ class AboutPage:
         self.QRImg = ImageTk.PhotoImage(Image.open("img/BTQR_code_small.png"))  
         self.QRCanvas.create_image(0, 0, anchor=NW, image=self.QRImg)
         self.QRCanvas.place(x=396,y=230)
-        self.txtBTAddress = Text(self.myFrame, height=1)
-        self.txtBTAddress.insert(1.0, "1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
-        self.txtBTAddress.configure(bg=self.myFrame.cget('bg'), relief="flat")
-        self.txtBTAddress.configure(state="disabled")
-        self.txtBTAddress.place(x=300,y=330)
-        
-        
+        self.lblBTAddress = ttk.Label(self.myFrame, font=("Helvetica", 10), text="1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
+        self.lblBTAddress.place(x=300,y=330)
+        self.copyIcon = PhotoImage(file = "img/copy_icon.png")
+        self.btnCopyIcon = ttk.Button(self.myFrame, text="", image=self.copyIcon, command=lambda:self.copyToClipboard(self.root))
+        self.btnCopyIcon.place(x=270,y=316)
 
+        # self.txtBTAddress = Text(self.myFrame, height=1)
+        # self.txtBTAddress.insert(1.0, "1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9")
+        # self.txtBTAddress.configure(bg=self.myFrame.cget('bg'), relief="flat")
+        # self.txtBTAddress.configure(state="disabled")
+        # self.txtBTAddress.place(x=300,y=330)
 
+    def copyToClipboard(self, root):
+        self.tkclip = root
+        self.tkclip.clipboard_clear()
+        self.tkclip.clipboard_append('1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9')
+        self.tkclip.update()
+        print("you copied")
 
-        
     def callbackPaypal(self,event):
         webbrowser.open_new(r"https://www.paypal.com/donate?hosted_button_id=E5S4XNJWDA3Q6")
 
