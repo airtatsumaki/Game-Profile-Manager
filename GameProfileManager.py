@@ -45,8 +45,6 @@ class MyApp:
         if self.msgText:
             messagebox.showinfo("File(s) missing","It seems you do not have a {0} file. Not to worry, one will be created for you within the app/resources folder when you add a new {0}.".format(self.msgText))
 
-
-
     def raise_frame(self, cont):
         self.pages[cont].clearForm()
         page = self.pages[cont].myFrame.tkraise()
