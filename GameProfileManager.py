@@ -62,7 +62,8 @@ def main():
     root.title("Game Profile Manager")
     #root.minsize(300,400)
     root.geometry('{}x{}'.format(616, 381))
-    runapp = MyApp(root)
+    root.resizable(False, False)
+    MyApp(root)
     root.mainloop()
 
 main()
