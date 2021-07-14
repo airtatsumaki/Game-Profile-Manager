@@ -1,5 +1,5 @@
 #create .exe file with...
-#pyinstaller --noconsole guiClass.py
+#pyinstaller --noconsole --onefile guiClass.py
 
 import os
 import json
