@@ -60,7 +60,7 @@ class AboutPage:
         self.tkclip.clipboard_clear()
         self.tkclip.clipboard_append('1FhJtPjgQi2SGpnWCJSBAe8iM4yDRqvhz9')
         self.tkclip.update()
-        print("you copied")
+        #print("you copied")
 
     def callbackPaypal(self,event):
         webbrowser.open_new(r"https://www.paypal.com/donate?hosted_button_id=E5S4XNJWDA3Q6")
