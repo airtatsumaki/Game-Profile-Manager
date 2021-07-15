@@ -1,5 +1,6 @@
 #create .exe file with...
-#pyinstaller --noconsole --onefile guiClass.py
+#pyinstaller --noconsole --onefile GameProfileManager.py
+#pyinstaller --debug=all --onefile GameProfileManager.py 
 
 import os
 import json

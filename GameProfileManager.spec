@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['GameProfileManager.py'],
-             pathex=["D:\\Work\\naz's work\\python_test\\.vscode"],
+             pathex=["D:\\Work\\naz's work\\Game-Profile-Manager\\.vscode"],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -14,7 +14,7 @@ a = Analysis(['GameProfileManager.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher,
-             noarchive=False)
+             noarchive=True)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
@@ -22,12 +22,12 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          [],
+          [('v', None, 'OPTION')],
           name='GameProfileManager',
-          debug=False,
+          debug=True,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=True )
