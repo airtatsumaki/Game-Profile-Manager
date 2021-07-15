@@ -9,4 +9,5 @@ This application can be used to manage save game profiles for your PC games.
 ### Dependencies
 
 - Tkinter
-- [pylnk](https://github.com/strayge/pylnk)
+- [pylnk3](https://github.com/strayge/pylnk)
+- [Pillow](https://pillow.readthedocs.io/en/stable/)
