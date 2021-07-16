@@ -24,16 +24,17 @@ On startup Game Profile Manager will provide a prompt to say you do not have any
 
 The top menu bar is where users can navigate to different app features.  
 
-![Navigation  bar](userguide_img/navigation.png)  
 <ul>
 <li><strong>Home</strong> - this is the default page of the app. Here you can select your game and the profile and run the game.</li>
 <li><strong>Profile management</strong> - here is where you can add and delete profiles. Note, deleting a profile will not delete the save games in the 'resources/' folder. You never know when you might need that save again.</li>
 <li><strong>Game management</strong> - here is where you can add and delete games. Note, deleting doesn't uninstall the game. It simply breaks Gampe Profile Managers tie to the game. This will also not delete any saved data ino the 'resources/' folder</li>
 </ul>
 
+![Navigation  bar](userguide_img/navigation.png)
+
 ### Adding a profile
 
-
+Some text here
 
 ### Dependencies
 
