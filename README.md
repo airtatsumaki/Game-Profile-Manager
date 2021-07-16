@@ -10,7 +10,7 @@ Originally developed in 2009 for the sole purpose of the app handling profiles f
 
 Unzip Game Profile Manager to a location of choice. For initial release i would suggestion placing it outside of program files.
 
-Ensure the folder structure is as follows:
+Ensure the folder structure is as follows:  
 Game Profile Manager  
 &nbsp;&nbsp;&nbsp;> img  
 &nbsp;&nbsp;&nbsp;> GameProfileManager.exe
