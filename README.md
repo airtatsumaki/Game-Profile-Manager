@@ -23,6 +23,7 @@ On startup Game Profile Manager will provide a prompt to say you do not have any
 ### Navigation
 
 The top menu bar is where users can navigate to different app features.  
+
 ![Navigation  bar](userguide_img/navigation.png)  
 <ul>
 <li><strong>Home</strong> - this is the default page of the app. Here you can select your game and the profile and run the game.</li>
