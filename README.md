@@ -80,6 +80,8 @@ To go Game Management via the menu bar then enter the following information.
 <li />Save file location: C:\Users\user\Documents\Codemasters\GRID\savegame
 </ul>
 
+![Adding GRID](userguide_img/GRID.png)
+
 That's it. Now add a profile (Profile A) and play the game. When a new profile (Profile B) is selected you will notice that Profile B will have their own save files created while Profile A's save files will be backed up into the 'resources/' folder which will be location in the root of the Game Profile Manager folder.
 
 ## Dependencies
