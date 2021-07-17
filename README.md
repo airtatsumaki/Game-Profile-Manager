@@ -1,6 +1,6 @@
 # Game Profile Manager
 
-The solution to creating multiple profiles or playthroughs of single player games.
+The solution to creating multiple profiles or playthroughs for single player games.
 
 As a PC gamer sharing a PC with siblings, I found there are a ton of games out there that do not support profiles or save slots. This is problematic when you have multiple users on the same device. You would normally find starting a 'New Game' in such games would pull up prompts like 'All previous progress will be lost. Do you want to continue', sigh!
 
