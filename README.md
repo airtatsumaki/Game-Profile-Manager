@@ -91,7 +91,7 @@ To go Game Management via the menu bar then enter the following information.
 
 That's it. Now add a profile (Profile A) and play the game. When a new profile (Profile B) is selected you will notice that Profile B will have their own save files created while Profile A's save files will be backed up into the 'resources/' folder which will be located in the root of the Game Profile Manager folder.
 
-## Source and Contributors
+## Source and contributors
 img > copy_icon.png - Provided by [flaticon.com](https://www.flaticon.com/). Contributor: [Catalin Fertu](https://catalinfertu.com/)
 
 ## Application dependencies
