@@ -14,7 +14,7 @@ class AboutPage:
         self.lblHomeTitle.place(x=256, y=20)
         self.version = ttk.Label(self.myFrame, font=("Helvetica", 10), text="Game Profile Manager v0.1-alpha")
         self.version.place(x=30, y=80)
-        self.decription = ttk.Label(self.myFrame, font=("Helvetica", 10), text="The solution to creating multiple profiles or playthroughs of single player games.")
+        self.decription = ttk.Label(self.myFrame, font=("Helvetica", 10), text="The solution to creating multiple profiles or playthroughs for single player games.")
         self.decription.place(x=30, y=100)
         self.lblGit = ttk.Label(self.myFrame, font=("Helvetica", 10), text="GitHub:")
         self.lblGit.place(x=30, y=120)

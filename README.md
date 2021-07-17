@@ -73,11 +73,11 @@ Game Profile Manager supports the use of steam game urls. Steam shortcuts do not
 ![Steam app id](userguide_img/steam_appid.png)
 </ol>
 
-## Adding an example game (Race Driver: Grid (2008)
+## Adding an example game (Race Driver: Grid (2008))
 
 Lets run through a worked example of using the app from start to finish with Race Driver: Grid. Although this game supports steam family sharing it does not link save games to the active steam user. So even though multiple steam users can play this game, if on the same device, they will share the same save game data. Not ideal.
 
-### Adding Grid to Game Profile Manager
+### Adding Race Driver: Grid (2008) to Game Profile Manager
 
 To go Game Management via the menu bar then enter the following information.  
 <ul>
@@ -89,7 +89,7 @@ To go Game Management via the menu bar then enter the following information.
 
 ![Adding GRID](userguide_img/GRID.png)
 
-That's it. Now add a profile (Profile A) and play the game. When a new profile (Profile B) is selected you will notice that Profile B will have their own save files created while Profile A's save files will be backed up into the 'resources/' folder which will be located in the root of the Game Profile Manager folder.
+That's it. Now add a profile (Profile A) and play the game. When a new profile (Profile B) is selected you will notice that Profile B will have their own save files created.
 
 ## Source and contributors
 img > copy_icon.png - Provided by [flaticon.com](https://www.flaticon.com/). Contributor: [Catalin Fertu](https://catalinfertu.com/)
