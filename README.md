@@ -52,7 +52,7 @@ Adding a game is a bit more involved but it's worth it. On the left of the game 
 <ul>
 <li /><strong>Name</strong> - this will be the name of the game. You can name the games whatever you like it doesn't need to match the actual games name.
 <li /><strong>.exe or steam URL 'steam://rungameid/XXXXXX'</strong> - here is where you can add the games .exe path (advised for non-steam games) or add the steam URL of the game. More about finding the steam URL for a given game below.
-<li /><strong>Save location</strong> - this is where the game of your choice is currently storing its saved data. Every game has a different save folder, so we'll need to find it's location. Google is your friend here, but I aim to provide this information on a wiki page for ease of use at some point. It won't list every game, but it will be a start.
+<li /><strong>Save location</strong> - this is where the game of your choice is currently storing its saved data. Every game has a different save folder, so we'll need to find its location. Google is your friend here, but I aim to provide this information on a wiki page for ease of use at some point. It won't list every game, but it will be a start.
 </ul>
 
 ### Launching a game
